@@ -1,0 +1,13 @@
+node_modules/
+build/
+out/
+dist/
+.venv/
+env/
+__pycache__/
+*.log
+*.mp4
+*.zip
+*.tar
+*.exe
+*.iso

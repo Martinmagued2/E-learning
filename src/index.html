@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تطبيق تعليم السلامة للطلاب المصريين">
+    <title>تطبيق تعليم السلامة</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/scenarios.css">
+    <link rel="stylesheet" href="css/dragdrop.css">
+    <link rel="stylesheet" href="css/features.css">
+    <link rel="stylesheet" href="css/features2.css">
+    <link rel="stylesheet" href="css/dialogueTour.css">
+    <link rel="stylesheet" href="css/tourMenu.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Gradio Client for HF Spaces -->
+    <script type="module">
+        import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client/+esm";
+        window.GradioClient = Client;
+    </script>
+</head>
+
+<body>
+    <!-- Global Partner Logos Header -->
+    <div class="partners-header global-header">
+        <div class="partner-logo-container">
+            <img src="assets/images/logos/ain_shams_logo.png" alt="كلية الهندسة جامعة عين شمس"
+                class="partner-logo ain-shams">
+            <p>كلية الهندسة جامعة عين شمس</p>
+        </div>
+        <div class="collaboration-text">
+            <p>بالتعاون مع</p>
+        </div>
+        <div class="partner-logo-container">
+            <img src="assets/images/logos/rashpetco_logo.png" alt="RASHPETCO" class="partner-logo">
+            <p>RASHPETCO</p>
+        </div>
+        <div class="partner-logo-container">
+            <img src="assets/images/logos/burullus_logo.png" alt="Burullus" class="partner-logo">
+            <p>Burullus Gas</p>
+        </div>
+        <!-- Help/Tour Button -->
+        <button class="help-btn" id="helpBtn" aria-label="المساعدة والشرح" title="اضغط لبدء الشرح التفاعلي">
+            <span class="help-icon">❓</span>
+        </button>
+
+        <!-- Welcome Screen -->
+        <div class="screen active" id="welcomeScreen">
+            <div class="welcome-container">
+                <div class="welcome-header">
+                    <div class="app-logo">🛡️</div>
+                    <h1 class="welcome-title">مرحباً بك في تطبيق تعليم السلامة</h1>
+                    <p class="welcome-subtitle">تعلم كيف تحمي نفسك وعائلتك</p>
+                </div>
+
+                <div class="welcome-card">
+                    <div class="welcome-icon">👋</div>
+                    <h2>من فضلك، أدخل اسمك</h2>
+                    <p class="welcome-note">سنستخدم اسمك لتخصيص تجربتك والشهادة</p>
+
+                    <div class="input-group">
+                        <label for="studentName">الاسم الكامل</label>
+                        <input type="text" id="studentName" class="text-input" placeholder="أدخل اسمك هنا..."
+                            autocomplete="off">
+                    </div>
+
+                    <button class="btn btn-primary btn-large" id="startBtn">
+                        <span>ابدأ التعلم</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </div>
+
+                <div class="welcome-footer">
+                    <p>تطبيق تعليمي لطلاب المدارس في مصر</p>
+                    <a href="#" id="resetWelcomeBtn"
+                        style="display: block; margin-top: 10px; color: var(--text-muted); font-size: 0.8rem; text-decoration: underline; cursor: pointer;">
+                        البدء من جديد (حذف البيانات)
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Screen -->
+        <div class="screen" id="dashboardScreen">
+            <div class="dashboard-container">
+                <header class="app-header">
+                    <div class="header-content">
+                        <div class="user-info">
+                            <div class="user-avatar">👤</div>
+                            <div class="user-details">
+                                <p class="user-greeting">مرحباً،</p>
+                                <h2 class="user-name" id="userName">الطالب</h2>
+                            </div>
+                        </div>
+
+                        <div class="progress-widget">
+                            <div class="progress-circle" id="progressCircle">
+                                <svg viewBox="0 0 100 100">
+                                    <defs>
+                                        <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                                        </linearGradient>
+                                    </defs>
+                                    <circle cx="50" cy="50" r="45" class="progress-bg"></circle>
+                                    <circle cx="50" cy="50" r="45" class="progress-fill" id="progressFill"></circle>
+                                </svg>
+                                <div class="progress-text">
+                                    <span class="progress-number" id="progressNumber">0</span>
+                                    <span class="progress-percent">%</span>
+                                </div>
+                            </div>
+                            <p class="progress-label">إجمالي التقدم</p>
+                        </div>
+                    </div>
+                </header>
+
+                <main class="dashboard-main">
+                    <section class="dashboard-section">
+                        <h2 class="section-title">الدورات التعليمية</h2>
+                        <p class="section-subtitle">اختر الدورة التي تريد البدء بها</p>
+
+                        <div class="courses-grid" id="coursesGrid">
+                            <!-- Courses will be dynamically loaded here -->
+                        </div>
+                    </section>
+
+                    <!-- Interactive Tour Button -->
+                    <div style="text-align: center; margin: 30px 0;">
+                        <button class="tour-start-btn" id="restartTour"
+                            onclick="DialogueTour.startTour('dashboard', true)">
+                            <span class="tour-btn-icon">👋</span>
+                            <span>جولة إرشادية مع سالم ونور</span>
+                        </button>
+                    </div>
+
+                    <!-- Learning Tools Section (NEW FEATURES) -->
+                    <section class="dashboard-section tools-section">
+                        <h3 class="section-title">🧰 أدوات التعلم</h3>
+                        <p class="section-subtitle">طرق ممتعة لتعزيز معرفتك بالسلامة</p>
+
+                        <div class="tools-grid">
+                            <button class="tool-card" id="openMiniGames" onclick="MiniGames.openMenu()">
+                                <span class="tool-icon">🎮</span>
+                                <span class="tool-name">الألعاب التعليمية</span>
+                                <span class="tool-desc">تعلم بالمرح!</span>
+                            </button>
+
+                            <button class="tool-card" id="openFlashcards" onclick="Flashcards.openMenu()">
+                                <span class="tool-icon">🃏</span>
+                                <span class="tool-name">البطاقات التعليمية</span>
+                                <span class="tool-desc">مراجعة سريعة</span>
+                            </button>
+
+                            <button class="tool-card" id="openGlossary" onclick="Glossary.open()">
+                                <span class="tool-icon">📖</span>
+                                <span class="tool-name">قاموس المصطلحات</span>
+                                <span class="tool-desc">تعريفات السلامة</span>
+                            </button>
+
+                            <button class="tool-card" id="openCaseStudies" onclick="CaseStudies.open()">
+                                <span class="tool-icon">📋</span>
+                                <span class="tool-name">دراسات الحالة</span>
+                                <span class="tool-desc">تعلم من الواقع</span>
+                            </button>
+
+                            <button class="tool-card" id="openPosters" onclick="SafetyPosters.open()">
+                                <span class="tool-icon">🖼️</span>
+                                <span class="tool-name">ملصقات للطباعة</span>
+                                <span class="tool-desc">حمّل واطبع</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <section class="dashboard-section achievements-section">
+                        <h3 class="section-title">إنجازاتك</h3>
+                        <div class="achievements-grid" id="achievementsGrid">
+                            <div class="achievement-card">
+                                <span class="achievement-icon">🏅</span>
+                                <p class="achievement-name">البداية</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="dashboard-section certificates-section">
+                        <h3 class="section-title">شهاداتك</h3>
+                        <div class="certificates-grid" id="certificatesGrid"
+                            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                            <!-- Certificates will be loaded here -->
+                            <p class="text-muted" style="grid-column: 1/-1;">أكمل الدورات للحصول على شهاداتك هنا.</p>
+                        </div>
+                    </section>
+
+                    <!-- Reset Data Button (For Fresh Start) -->
+                    <div class="dashboard-footer"
+                        style="text-align: center; margin-top: 50px; margin-bottom: 30px; opacity: 0.6; transition: opacity 0.3s;"
+                        onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">
+                        <button id="resetAppBtn" class="btn btn-secondary"
+                            style="background-color: var(--danger); font-size: 0.9rem;">
+                            <span class="btn-icon">🗑️</span>
+                            <span>حذف جميع البيانات (بداية جديدة)</span>
+                        </button>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- Course Screen -->
+        <div class="screen" id="courseScreen">
+            <div class="course-container">
+                <header class="course-header">
+                    <button class="btn btn-back" id="backToDashboard">
+                        <span class="btn-icon">←</span>
+                        <span>العودة</span>
+                    </button>
+
+                    <div class="course-info">
+                        <h1 class="course-title" id="courseTitle">عنوان الدورة</h1>
+                        <div class="course-progress-bar">
+                            <div class="course-progress-fill" id="courseProgressFill"></div>
+                        </div>
+                    </div>
+
+                </header>
+
+                <main class="course-main">
+                    <!-- Hero Intro Section with Course Objectives -->
+                    <section class="course-intro-hero" id="courseIntroHero">
+                        <div class="intro-content">
+                            <h2 class="intro-heading">🎯 أهداف التعلم</h2>
+                            <p class="intro-subheading">هذا ما ستتعلمه في هذه الدورة</p>
+
+                            <div class="objectives-grid" id="objectivesGrid">
+                                <!-- Objectives will be dynamically inserted here -->
+                                <div class="objective-chip">
+                                    <span class="objective-icon">📚</span>
+                                    <p class="objective-text">جاري التحميل...</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <div class="lesson-container" id="lessonContainer">
+                        <!-- Lesson content will be loaded here -->
+                    </div>
+                </main>
+
+                <footer class="course-footer">
+                    <button class="btn btn-secondary" id="prevLessonBtn">
+                        <span class="btn-icon">←</span>
+                        <span>السابق</span>
+                    </button>
+
+                    <div class="lesson-indicator" id="lessonIndicator">
+                        <span id="currentLessonNum">1</span> / <span id="totalLessons">5</span>
+                    </div>
+
+                    <button class="btn btn-primary" id="nextLessonBtn">
+                        <span>التالي</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </footer>
+            </div>
+        </div>
+
+        <!-- Scenarios Screen -->
+        <div class="screen" id="scenariosScreen">
+            <div class="container">
+                <div class="screen-header">
+                    <button class="btn btn-secondary" onclick="App.showScreen('dashboardScreen'); App.loadDashboard();">
+                        <span class="btn-icon">←</span>
+                        <span>العودة</span>
+                    </button>
+                    <h1 class="scenario-title">تطبيق عملي</h1>
+                </div>
+
+                <div class="scenario-progress">
+                    <span>السيناريو <span id="scenarioNum">1</span> من <span id="scenarioTotal">3</span></span>
+                </div>
+
+                <div id="scenariosMain" class="scenarios-container">
+                    <!-- Scenarios will be rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div class="screen" id="quizScreen">
+            <div class="quiz-container">
+                <header class="quiz-header">
+                    <button class="btn btn-back" id="backToCourse">
+                        <span class="btn-icon">←</span>
+                        <span>العودة</span>
+                    </button>
+
+                    <h1 class="quiz-title">اختبار الدورة</h1>
+
+                    <div class="quiz-progress">
+                        <span id="quizQuestionNum">1</span> / <span id="quizTotalQuestions">5</span>
+                    </div>
+                </header>
+
+                <main class="quiz-main" id="quizMain">
+                    <!-- Quiz questions will be loaded here -->
+                </main>
+            </div>
+        </div>
+
+        <!-- Certificate Screen -->
+        <div class="screen" id="certificateScreen">
+            <!-- Congratulations Overlay -->
+            <div class="congrats-overlay" id="congratsOverlay">
+                <div class="congrats-content">
+                    <div class="congrats-fireworks">🎆</div>
+                    <h1 class="congrats-title">🎉 مبروك! 🎉</h1>
+                    <p class="congrats-subtitle">لقد أكملت التدريب بنجاح!</p>
+                    <div class="congrats-stars">⭐ ⭐ ⭐ ⭐ ⭐</div>
+                    <button class="btn btn-primary btn-large" id="showCertificateBtn">
+                        <span>🏆</span>
+                        <span>عرض الشهادة</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="certificate-container">
+                <div class="certificate-paper">
+                    <div class="certificate-border">
+                        <div class="certificate-content">
+                            <!-- Three Logos Header -->
+                            <div class="certificate-logos">
+                                <div class="cert-logo-item">
+                                    <img src="assets/images/logos/ain_shams_logo.png" alt="كلية الهندسة جامعة عين شمس"
+                                        class="cert-logo-img">
+                                    <span>كلية الهندسة جامعة عين شمس</span>
+                                </div>
+                                <div class="cert-logo-item">
+                                    <img src="assets/images/logos/rashpetco_logo.png" alt="RASHPETCO"
+                                        class="cert-logo-img">
+                                    <span>RASHPETCO</span>
+                                </div>
+                                <div class="cert-logo-item">
+                                    <img src="assets/images/logos/burullus_logo.png" alt="Burullus"
+                                        class="cert-logo-img">
+                                    <span>Burullus Gas</span>
+                                </div>
+                            </div>
+
+                            <div class="certificate-header">
+                                <div class="certificate-logo">🏆</div>
+                                <h1 class="certificate-title">شهادة إتمام</h1>
+                                <p class="certificate-subtitle">Certificate of Completion</p>
+                            </div>
+
+                            <div class="certificate-body">
+                                <p class="certificate-text">هذا يشهد بأن</p>
+                                <h2 class="certificate-student-name" id="certificateStudentName">اسم الطالب</h2>
+                                <p class="certificate-text">قد أتم بنجاح دورة</p>
+                                <h3 class="certificate-course-name" id="certificateCourseName">اسم الدورة</h3>
+                                <p class="certificate-completion-text">
+                                    وأظهر فهماً ممتازاً لمبادئ السلامة المهنية
+                                </p>
+                            </div>
+
+                            <div class="certificate-footer">
+                                <div class="certificate-date">
+                                    <p class="certificate-label">تاريخ الإتمام</p>
+                                    <p class="certificate-value" id="certificateDate">1 يناير 2026</p>
+                                </div>
+                                <div class="certificate-seal">
+                                    <span class="seal-icon">🛡️</span>
+                                    <span class="seal-text">معتمد</span>
+                                </div>
+                                <div class="certificate-score">
+                                    <p class="certificate-label">الدرجة</p>
+                                    <p class="certificate-value" id="certificateScore">100%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="certificate-actions">
+                    <button class="btn btn-secondary btn-print" onclick="Certificate.download()">
+                        <span class="btn-icon">⬇️</span>
+                        <span>تحميل الشهادة</span>
+                    </button>
+                    <button class="btn btn-primary" onclick="Certificate.close()">
+                        <span>العودة للرئيسية</span>
+                        <span class="btn-icon">🏠</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="js/tts.js"></script>
+        <script src="js/storage.js"></script>
+        <script src="js/audio.js"></script>
+        <script src="js/quiz.js"></script>
+        <script src="js/scenarios.js"></script>
+        <script src="js/clickActivity.js"></script>
+        <script src="js/dragdrop.js"></script>
+        <script src="js/certificate.js"></script>
+
+        <!-- New Features -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdn.rawgit.com/MrRio/jsPDF/master/dist/polyfills.umd.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+        <script src="js/confetti.js"></script>
+        <script src="js/sounds.js"></script>
+        <script src="js/achievements.js"></script>
+        <script src="js/mascot.js"></script>
+        <script src="js/timedQuiz.js"></script>
+        <script src="js/miniGames.js"></script>
+        <script src="js/flashcards.js"></script>
+        <script src="js/caseStudies.js"></script>
+        <script src="js/accessibility.js"></script>
+        <script src="js/dialogueTour.js"></script>
+        <!-- Main App (must be last) -->
+        <script src="js/app.js"></script>
+</body>
+
+</html>

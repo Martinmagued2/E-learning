@@ -1,0 +1,74 @@
+/* Tour Menu Overlay */
+.tour-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.tour-menu {
+    background: linear-gradient(135deg, var(--dark-card) 0%, var(--dark-hover) 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    animation: slideUp 0.4s ease;
+}
+
+.tour-menu h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+}
+
+.tour-menu-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    background: var(--dark-bg);
+    border: 2px solid var(--dark-hover);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-align: right;
+}
+
+.tour-menu-btn:hover {
+    border-color: var(--primary-blue);
+    transform: translateX(-4px);
+}
+
+.tour-menu-btn span:first-child {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.tour-menu-btn div {
+    flex: 1;
+}
+
+.tour-menu-btn strong {
+    display: block;
+    font-size: var(--font-size-md);
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.tour-menu-btn small {
+    color: var(--text-muted);
+    font-size: var(--font-size-xs);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
