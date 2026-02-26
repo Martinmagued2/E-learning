@@ -41,6 +41,11 @@ const Certificate = {
         // Show certificate screen
         App.showScreen('certificateScreen');
 
+        // Start certificate tour
+        if (typeof DialogueTour !== 'undefined') {
+            setTimeout(() => DialogueTour.startTour('certificate'), 1500);
+        }
+
         // Show celebration if enabled
         if (showCelebration) {
             this.showCelebration();
@@ -60,10 +65,7 @@ const Certificate = {
         // Setup continue learning button
         const continueBtn = document.getElementById('continueLearning');
         if (continueBtn) {
-            continueBtn.onclick = () => {
-                App.showScreen('dashboardScreen');
-                App.loadDashboard();
-            };
+            continueBtn.onclick = () => this.close();
         }
     },
 
@@ -94,12 +96,17 @@ const Certificate = {
         const subtitleEl = document.querySelector('.certificate-subtitle');
         if (subtitleEl) subtitleEl.textContent = "Master Certificate of Achievement";
 
-        // Add Gold Border effect
-        const borderEl = document.querySelector('.certificate-border');
-        if (borderEl) borderEl.classList.add('master-gold');
+        // Add Master Class to container
+        const container = document.querySelector('.certificate-container');
+        if (container) container.classList.add('master-active');
 
         // Show certificate screen
         App.showScreen('certificateScreen');
+
+        // Start certificate tour
+        if (typeof DialogueTour !== 'undefined') {
+            setTimeout(() => DialogueTour.startTour('certificate'), 1500);
+        }
 
         // Celebration
         this.showFullCompletionCelebration();
@@ -118,10 +125,7 @@ const Certificate = {
         // Setup continue button
         const continueBtn = document.getElementById('continueLearning');
         if (continueBtn) {
-            continueBtn.onclick = () => {
-                App.showScreen('dashboardScreen');
-                App.loadDashboard();
-            };
+            continueBtn.onclick = () => this.close();
         }
     },
 
@@ -271,7 +275,7 @@ const Certificate = {
     /**
      * Download certificate as PDF using template image
      */
-    async download() {
+    async download(isMaster = false) {
         const overlay = document.querySelector('.congrats-overlay');
         if (overlay) overlay.classList.remove('show');
 
@@ -300,16 +304,30 @@ const Certificate = {
             // Add template as background (full page)
             doc.addImage(templateImg, 'JPEG', 0, 0, W, H);
 
+            // Special Master Certificate Overlay
+            if (isMaster) {
+                doc.setDrawColor(218, 165, 32); // Goldenrod
+                doc.setLineWidth(2);
+                doc.rect(5, 5, W - 10, H - 10);
+                doc.setLineWidth(1);
+                doc.rect(7, 7, W - 14, H - 14);
+
+                // Add a gold seal emoji or similar if possible
+                doc.setFontSize(40);
+                doc.text('🏆', 20, 40);
+            }
+
             // Add student name in the first decorative frame
             // Adjusted position based on template analysis (moved down further)
             const hasArabic = /[\u0600-\u06FF]/.test(studentName);
+            const nameColor = isMaster ? '#b8860b' : '#4a3c28';
             if (hasArabic) {
                 // Y centered around 142
-                const nameImg = await this.createArabicTextImage(studentName, 70, '#4a3c28', true);
+                const nameImg = await this.createArabicTextImage(studentName, 70, nameColor, true);
                 doc.addImage(nameImg, 'PNG', W / 2 - 85, 130, 170, 22);
             } else {
                 doc.setFontSize(36);
-                doc.setTextColor(74, 60, 40); // Dark brown
+                doc.setTextColor(isMaster ? 184 : 74, isMaster ? 134 : 60, isMaster ? 11 : 40);
                 doc.setFont('helvetica', 'bold');
                 doc.text(studentName, W / 2, 150, { align: 'center' });
             }
@@ -341,6 +359,10 @@ const Certificate = {
      * Go back to dashboard
      */
     close() {
+        // Remove master class if it was there
+        const container = document.querySelector('.certificate-container');
+        if (container) container.classList.remove('master-active');
+
         if (typeof App !== 'undefined') {
             App.showScreen('dashboardScreen');
             App.loadDashboard();

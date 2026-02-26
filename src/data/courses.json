@@ -51,6 +51,11 @@
                         {
                             "type": "image",
                             "value": "assets/images/kitchen_fire.png"
+                        },
+                        {
+                            "type": "interactive",
+                            "game": "spotDifference",
+                            "label": "لعبة اكتشف الفروق: مخاطر الحريق"
                         }
                     ]
                 },
@@ -101,6 +106,11 @@
                         {
                             "type": "image",
                             "value": "assets/images/fire_equipment.png"
+                        },
+                        {
+                            "type": "interactive",
+                            "game": "escapeRoom",
+                            "label": "تحدي غرفة هروب الحريق"
                         }
                     ]
                 },
@@ -724,6 +734,11 @@
                         {
                             "type": "image",
                             "value": "assets/images/safety_rules.png"
+                        },
+                        {
+                            "type": "interactive",
+                            "game": "emergencySimulator",
+                            "label": "بدء محاكي اتصال الطوارئ"
                         }
                     ]
                 },
@@ -754,7 +769,7 @@
                         },
                         {
                             "type": "image",
-                            "value": "assets/images/electrical_emergency.png"
+                            "value": "assets/images/electrical_shock.png"
                         },
                         {
                             "type": "text",
@@ -1001,6 +1016,11 @@
                         {
                             "type": "image",
                             "value": "assets/images/road_crossing.png"
+                        },
+                        {
+                            "type": "interactive",
+                            "game": "safetyArcade",
+                            "label": "أركيد سلامة الطريق"
                         }
                     ]
                 },
@@ -1282,6 +1302,11 @@
                         {
                             "type": "image",
                             "value": "assets/images/bathroom_hazard_scene.png"
+                        },
+                        {
+                            "type": "interactive",
+                            "game": "hazardMap",
+                            "label": "خريطة مخاطر المنزل"
                         }
                     ]
                 },
@@ -1328,6 +1353,11 @@
                         {
                             "type": "image",
                             "value": "assets/images/poison_hazard.png"
+                        },
+                        {
+                            "type": "interactive",
+                            "game": "PPEGame",
+                            "label": "تحدي معدات الوقاية الشخصية"
                         }
                     ]
                 }

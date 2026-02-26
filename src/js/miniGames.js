@@ -31,6 +31,48 @@ const MiniGames = {
             nameEn: 'Safety Sorting',
             icon: '📦',
             description: 'صنف الأشياء حسب نوع السلامة'
+        },
+        emergency: {
+            id: 'emergency',
+            name: 'محاكي الطوارئ',
+            nameEn: 'Emergency Simulator',
+            icon: '📞',
+            description: 'تدرب على الاتصال بالإسعاف'
+        },
+        ppe: {
+            id: 'ppe',
+            name: 'تحدي الملابس الواقية',
+            nameEn: 'PPE Dress-up',
+            icon: '⛑️',
+            description: 'اختر معدات الحماية المناسبة'
+        },
+        escape: {
+            id: 'escape',
+            name: 'غرفة الهروب',
+            nameEn: 'Escape Room',
+            icon: '🚪',
+            description: 'حل الألغاز لتخرج بأمان'
+        },
+        spotDiff: {
+            id: 'spotDiff',
+            name: 'أوجد الاختلافات الخطرة',
+            nameEn: 'Spot the Difference',
+            icon: '🖼️',
+            description: 'قارن بين الصور واكتشف الخطر'
+        },
+        hazardMap: {
+            id: 'hazardMap',
+            name: 'خريطة المخاطر',
+            nameEn: 'Hazard Map',
+            icon: '🗺️',
+            description: 'أمن موقع العمل من المخاطر'
+        },
+        arcade: {
+            id: 'arcade',
+            name: 'أركيد السلامة',
+            nameEn: 'Safety Arcade',
+            icon: '🎮',
+            description: 'التقط أدوات السلامة وتجنب الأخطار'
         }
     },
 
@@ -158,6 +200,22 @@ const MiniGames = {
     startGame(gameId) {
         this.score = 0;
         this.updateScore();
+
+        // Close menu before starting some specific games that have their own overlays
+        const standaloneGames = ['emergency', 'ppe', 'escape', 'spotDiff', 'hazardMap', 'arcade'];
+
+        if (standaloneGames.includes(gameId)) {
+            this.close();
+
+            if (gameId === 'emergency') EmergencySimulator.start();
+            else if (gameId === 'ppe') PPEGame.start();
+            else if (gameId === 'escape') EscapeRoom.start();
+            else if (gameId === 'spotDiff') SpotDifference.start();
+            else if (gameId === 'hazardMap') HazardMap.start();
+            else if (gameId === 'arcade') SafetyArcade.start();
+
+            return;
+        }
 
         switch (gameId) {
             case 'spot-hazard':

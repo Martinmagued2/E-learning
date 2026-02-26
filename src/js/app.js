@@ -426,7 +426,10 @@ const App = {
         // Update course progress
         this.updateCourseProgress();
 
-
+        // Start course tour
+        if (typeof DialogueTour !== 'undefined') {
+            setTimeout(() => DialogueTour.startTour('course'), 1000);
+        }
     },
 
     /**
@@ -534,6 +537,21 @@ const App = {
                         </a>
                     </div>
                 `;
+            } else if (item.type === 'interactive') {
+                // Use 'game' or 'value' field
+                const gameId = item.game || item.value;
+                if (gameId) {
+                    // Determine the class/object name: e.g. "escapeRoom" -> "EscapeRoom"
+                    const gameObjName = gameId.charAt(0).toUpperCase() + gameId.slice(1);
+                    content += `
+                        <div style="text-align: center; margin: 20px 0;">
+                            <button class="btn btn-primary btn-large" onclick="${gameObjName}.start()">
+                                <span style="font-size: 1.5rem;">🎮</span>
+                                <span>${item.label || 'ابدأ النشاط التفاعلي'}</span>
+                            </button>
+                        </div>
+                    `;
+                }
             }
         });
 
