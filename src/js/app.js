@@ -538,16 +538,20 @@ const App = {
                     </div>
                 `;
             } else if (item.type === 'interactive') {
-                // Determine the class/object name: e.g. "escapeRoom" -> "EscapeRoom"
-                const gameObjName = item.value.charAt(0).toUpperCase() + item.value.slice(1);
-                content += `
-                    <div style="text-align: center; margin: 20px 0;">
-                        <button class="btn btn-primary btn-large" onclick="${gameObjName}.start()">
-                            <span style="font-size: 1.5rem;">🎮</span>
-                            <span>${item.label || 'ابدأ النشاط التفاعلي'}</span>
-                        </button>
-                    </div>
-                `;
+                // Use 'game' or 'value' field
+                const gameId = item.game || item.value;
+                if (gameId) {
+                    // Determine the class/object name: e.g. "escapeRoom" -> "EscapeRoom"
+                    const gameObjName = gameId.charAt(0).toUpperCase() + gameId.slice(1);
+                    content += `
+                        <div style="text-align: center; margin: 20px 0;">
+                            <button class="btn btn-primary btn-large" onclick="${gameObjName}.start()">
+                                <span style="font-size: 1.5rem;">🎮</span>
+                                <span>${item.label || 'ابدأ النشاط التفاعلي'}</span>
+                            </button>
+                        </div>
+                    `;
+                }
             }
         });
 
