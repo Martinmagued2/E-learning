@@ -43,7 +43,7 @@ const PPEGame = {
                     </div>
                     <div class="ppe-main">
                         <div class="character-target" ondrop="PPEGame.drop(event)" ondragover="PPEGame.allowDrop(event)">
-                            <div class="character-placeholder">👤</div>
+                            <img src="assets/images/ppe_character.png" class="base-character">
                             <div class="applied-items" id="appliedItems"></div>
                         </div>
                         <p class="instruction">اسحب المعدات المناسبة لموقع البناء وضعها على الشخصية</p>

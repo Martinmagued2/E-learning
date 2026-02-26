@@ -29,7 +29,7 @@ const HazardMap = {
                     <div class="map-progress">النقاط المؤمنة: <span id="mapCount">0</span>/${this.totalHazards}</div>
                 </div>
                 <div class="map-body" id="mapBody">
-                    <div class="site-map">
+                    <div class="site-map facility-map">
                         <div class="map-point active" id="mapPoint1" style="top: 20%; left: 30%;" onclick="HazardMap.inspect(1, this)">⚠️</div>
                         <div class="map-point active" id="mapPoint2" style="top: 50%; left: 70%;" onclick="HazardMap.inspect(2, this)">⚠️</div>
                         <div class="map-point active" id="mapPoint3" style="top: 80%; left: 40%;" onclick="HazardMap.inspect(3, this)">⚠️</div>

@@ -32,11 +32,11 @@ const SpotDifference = {
                     <div class="spot-images">
                         <div class="image-wrapper safe">
                             <h3>آمن ✅</h3>
-                            <img src="assets/images/kitchen_hazard_scene.png" style="opacity: 0.5; filter: grayscale(1);">
+                            <img src="assets/images/spot_safe.png">
                         </div>
                         <div class="image-wrapper dangerous" id="diffImage">
                             <h3>خطر ❌</h3>
-                            <img src="assets/images/kitchen_hazard_scene.png">
+                            <img src="assets/images/spot_hazard.png">
                             <div class="diff-zone" style="top: 35%; left: 22%;" onclick="SpotDifference.found(0, this)"></div>
                             <div class="diff-zone" style="top: 78%; left: 38%; width: 25%;" onclick="SpotDifference.found(1, this)"></div>
                             <div class="diff-zone" style="top: 25%; left: 67%;" onclick="SpotDifference.found(2, this)"></div>

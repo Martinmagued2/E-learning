@@ -34,7 +34,7 @@ const SafetyArcade = {
                     <div class="arcade-score">النقاط: <span id="arcadeScore">0</span></div>
                 </div>
                 <div class="arcade-body" id="arcadeBody">
-                    <div class="arcade-canvas" id="arcadeCanvas">
+                    <div class="arcade-canvas arcade-bg" id="arcadeCanvas">
                         <div class="arcade-basket" id="arcadeBasket" style="left: 50%;">🛒</div>
                     </div>
                     <p class="instruction">استخدم الأسهم (يمين/يسار) للالتقاط أدوات السلامة وتجنب المخاطر!</p>

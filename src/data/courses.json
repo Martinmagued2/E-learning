@@ -769,7 +769,7 @@
                         },
                         {
                             "type": "image",
-                            "value": "assets/images/electrical_emergency.png"
+                            "value": "assets/images/electrical_shock.png"
                         },
                         {
                             "type": "text",

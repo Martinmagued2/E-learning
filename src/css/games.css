@@ -130,9 +130,10 @@
     border: 2px dashed #747d8c;
 }
 
-.character-placeholder {
-    font-size: 10rem;
-    opacity: 0.3;
+.base-character {
+    height: 90%;
+    object-fit: contain;
+    opacity: 0.8;
 }
 
 .applied-items {
@@ -163,6 +164,11 @@
     border-radius: 15px;
     position: relative;
     overflow: hidden;
+}
+
+.arcade-bg {
+    background-image: url('../assets/images/arcade_bg.png');
+    background-size: cover;
 }
 
 .interactive-object {
@@ -239,10 +245,14 @@
 
 .site-map {
     height: 500px;
-    background: #2f3542 url('../assets/images/first_aid_interactive.png') no-repeat center;
+    background: #2f3542 no-repeat center;
     background-size: cover;
     border-radius: 15px;
     position: relative;
+}
+
+.facility-map {
+    background-image: url('../assets/images/facility_map.png');
 }
 
 .map-point {
