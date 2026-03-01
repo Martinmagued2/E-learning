@@ -134,7 +134,7 @@ const AudioNarration = {
         getVoices();
     },
 
-    speak(text) {
+    speak(text, character = 'salem') {
         if (!text) return;
 
         // Cancel any current speech
@@ -142,15 +142,30 @@ const AudioNarration = {
 
         const utterance = new SpeechSynthesisUtterance(text);
 
-        // Use the selected voice or default
-        if (this.voice) {
-            utterance.voice = this.voice;
+        // Character specific voice selection
+        const voices = window.speechSynthesis.getVoices();
+        let selectedVoice = null;
+
+        if (character === 'nour') {
+            // Priority for female voices
+            selectedVoice = voices.find(v => v.name.includes('Hoda') || v.name.includes('Zira') || v.name.includes('Female')) ||
+                           voices.find(v => v.lang === 'ar-EG') ||
+                           voices.find(v => v.lang.startsWith('ar'));
+        } else {
+            // Priority for male voices
+            selectedVoice = voices.find(v => v.name.includes('Naayel') || v.name.includes('David') || v.name.includes('Male')) ||
+                           voices.find(v => v.lang === 'ar-EG') ||
+                           voices.find(v => v.lang.startsWith('ar'));
+        }
+
+        if (selectedVoice) {
+            utterance.voice = selectedVoice;
         }
 
         // Settings for more natural pacing
         utterance.lang = 'ar-EG'; // Force Egyptian locale
-        utterance.rate = 0.9;     // Slightly slower is clearer
-        utterance.pitch = 1.0;
+        utterance.rate = 0.95;     // Slightly slower is clearer
+        utterance.pitch = character === 'nour' ? 1.2 : 1.0;
 
         window.speechSynthesis.speak(utterance);
     },

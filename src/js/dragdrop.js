@@ -266,6 +266,13 @@ const DragDropActivity = {
         // Save completion
         if (this.currentActivity && this.currentActivity.courseId) {
             Storage.saveScenarioScore(this.currentActivity.courseId, this.totalTargets, this.totalTargets);
+
+            // Mark lesson activity as completed
+            if (typeof App !== 'undefined' && App.currentCourse && App.currentCourse.lessons[App.currentLessonIndex]) {
+                const lesson = App.currentCourse.lessons[App.currentLessonIndex];
+                Storage.markLessonActivityCompleted(App.currentCourse.id, lesson.id);
+                App.updateLessonNavigation();
+            }
         }
     }
 };

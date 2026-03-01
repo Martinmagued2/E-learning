@@ -279,8 +279,15 @@
                     <h1 class="scenario-title">تطبيق عملي</h1>
                 </div>
 
-                <div class="scenario-progress">
-                    <span>السيناريو <span id="scenarioNum">1</span> من <span id="scenarioTotal">3</span></span>
+                <div class="scenario-progress-container" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <button class="btn btn-secondary" onclick="App.showScreen('courseScreen')" id="backToLessonFromScenario">
+                        <span class="btn-icon">←</span>
+                        <span>العودة للدرس</span>
+                    </button>
+                    <div class="scenario-progress">
+                        <span>السيناريو <span id="scenarioNum">1</span> من <span id="scenarioTotal">3</span></span>
+                    </div>
+                    <div style="width: 100px;"></div> <!-- Spacer -->
                 </div>
 
                 <div id="scenariosMain" class="scenarios-container">

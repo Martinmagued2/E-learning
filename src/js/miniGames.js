@@ -31,6 +31,20 @@ const MiniGames = {
             nameEn: 'Safety Sorting',
             icon: '📦',
             description: 'صنف الأشياء حسب نوع السلامة'
+        },
+        ppeDressUp: {
+            id: 'ppe-dress-up',
+            name: 'تجهيز معدات الوقاية',
+            nameEn: 'PPE Dress Up',
+            icon: '🦺',
+            description: 'اختر المعدات الصحيحة للعمل مع الكهرباء'
+        },
+        callSimulator: {
+            id: 'call-simulator',
+            name: 'محاكي الطوارئ',
+            nameEn: 'Emergency Call Simulator',
+            icon: '📞',
+            description: 'تعلم كيف تتصل بالطوارئ في حالة الصدمة الكهربائية'
         }
     },
 
@@ -103,6 +117,7 @@ const MiniGames = {
         container.className = 'mini-game-container';
         container.innerHTML = `
             <div class="mini-game-header">
+                <button class="btn btn-back mini-game-back" id="backGame" title="العودة">←</button>
                 <button class="btn btn-back mini-game-close" id="closeGame">✕</button>
                 <h2 class="mini-game-title" id="gameTitle"></h2>
                 <div class="mini-game-score" id="gameScore">النقاط: 0</div>
@@ -116,6 +131,15 @@ const MiniGames = {
         // Close button
         document.getElementById('closeGame').addEventListener('click', () => {
             this.close();
+        });
+
+        // Back button
+        document.getElementById('backGame').addEventListener('click', () => {
+            if (this.currentGame) {
+                this.openMenu();
+            } else {
+                this.close();
+            }
         });
 
         return container;
@@ -169,6 +193,12 @@ const MiniGames = {
             case 'sorting':
                 this.startSorting();
                 break;
+            case 'ppe-dress-up':
+                this.startPPEDressUp();
+                break;
+            case 'call-simulator':
+                this.startCallSimulator();
+                break;
         }
     },
 
@@ -179,6 +209,17 @@ const MiniGames = {
     startSpotHazard() {
         // Realistic scenarios with invisible hitboxes
         const scenarios = [
+            {
+                id: 'street-hazard',
+                title: 'الشارع والمشاة',
+                image: 'assets/images/mini_games/spot_hazard.png',
+                hazards: [
+                    { x: 15, y: 65, width: 15, height: 15, name: 'اللعب في الشارع', found: false },
+                    { x: 45, y: 75, width: 12, height: 12, name: 'عبور غير آمن', found: false },
+                    { x: 75, y: 60, width: 10, height: 15, name: 'دراجة مسرعة', found: false },
+                    { x: 40, y: 35, width: 10, height: 10, name: 'سيارة قادمة', found: false }
+                ]
+            },
             {
                 id: 'kitchen-real',
                 title: 'المطبخ',
@@ -192,51 +233,6 @@ const MiniGames = {
                     { x: 67, y: 25, width: 10, height: 18, name: 'نار بدون مراقبة', found: false },
                     // Bad wire/outlet (Center wall) - Shifted down/left
                     { x: 53, y: 58, width: 8, height: 10, name: 'سلك كهرباء تالف', found: false }
-                ]
-            },
-            {
-                id: 'living-room-real',
-                title: 'غرفة المعيشة',
-                image: 'assets/images/living_room_hazard_scene.png',
-                hazards: [
-                    // Tangled cords (Under rug/center)
-                    { x: 45, y: 65, width: 20, height: 15, name: 'أسلاك متشابكة', found: false },
-                    // Lego/Toys (Stairs/Left)
-                    { x: 15, y: 40, width: 15, height: 20, name: 'ألعاب على الدرج', found: false },
-                    // Fireplace (Center/Back)
-                    { x: 45, y: 35, width: 12, height: 15, name: 'مدفأة بدون حاجز', found: false },
-                    // Window blind cord (Right window)
-                    { x: 80, y: 20, width: 10, height: 40, name: 'حبل ستارة طويل', found: false }
-                ]
-            },
-            {
-                id: 'bathroom-real',
-                title: 'الحمام',
-                image: 'assets/images/bathroom_hazard_scene.png',
-                hazards: [
-                    // Hair dryer (Near tub/Right)
-                    { x: 45, y: 50, width: 12, height: 15, name: 'مجزف شعر قرب الماء', found: false },
-                    // Medicine bottle (Counter/Left)
-                    { x: 25, y: 25, width: 12, height: 12, name: 'أدوية مفتوحة', found: false },
-                    // Water spill (Floor/Left)
-                    { x: 20, y: 80, width: 25, height: 15, name: 'أرضية مبللة', found: false },
-                    // Razor (Tub edge/Right)
-                    { x: 65, y: 30, width: 10, height: 10, name: 'شفرة حلاقة مكشوفة', found: false }
-                ]
-            },
-            {
-                id: 'playground-real',
-                title: 'الشارع والملعب',
-                image: 'assets/images/playground_hazard_scene.png',
-                hazards: [
-                    // Broken swing (Left)
-                    { x: 15, y: 40, width: 10, height: 25, name: 'أرجوحة مكسورة', found: false },
-                    // Ball in street (Bottom/Right)
-                    { x: 35, y: 75, width: 10, height: 10, name: 'كرة في الشارع', found: false },
-                    // Broken glass (Center/Ground)
-                    { x: 45, y: 55, width: 12, height: 10, name: 'زجاج مكسور', found: false },
-                    // Bike blocking path (Right/Top)
-                    { x: 75, y: 25, width: 20, height: 15, name: 'دراجة في الطريق', found: false }
                 ]
             }
         ];
@@ -552,6 +548,13 @@ const MiniGames = {
         if (typeof Storage !== 'undefined') {
             Storage.saveScenarioScore(this.currentGame, this.score, 100);
             Storage.markGameCompleted(this.currentGame, this.score);
+
+            // Mark lesson activity as completed if launched from a lesson
+            if (typeof App !== 'undefined' && App.currentCourse && App.currentCourse.lessons[App.currentLessonIndex]) {
+                const lesson = App.currentCourse.lessons[App.currentLessonIndex];
+                Storage.markLessonActivityCompleted(App.currentCourse.id, lesson.id);
+                App.updateLessonNavigation();
+            }
         }
 
         // Check for achievements
@@ -597,6 +600,133 @@ const MiniGames = {
         if (scoreEl) {
             scoreEl.textContent = `النقاط: ${this.score}`;
         }
+    },
+
+    /**
+     * Start PPE Dress Up game
+     */
+    startPPEDressUp() {
+        this.currentGame = 'ppe-dress-up';
+        document.getElementById('gameTitle').textContent = `🦺 ${this.games.ppeDressUp.name}`;
+
+        const items = [
+            { id: 'gloves', name: 'قفازات عازلة', emoji: '🧤', correct: true },
+            { id: 'boots', name: 'حذاء مطاطي', emoji: '🥾', correct: true },
+            { id: 'helmet', name: 'خوذة بلاستيك', emoji: '⛑️', correct: true },
+            { id: 'glasses', name: 'نظارة حماية', emoji: '👓', correct: true },
+            { id: 'watch', name: 'ساعة معدنية', emoji: '⌚', correct: false },
+            { id: 'ring', name: 'خاتم ذهب', emoji: '💍', correct: false },
+            { id: 'flipflops', name: 'شبشب مفتوح', emoji: '🩴', correct: false },
+            { id: 'shorts', name: 'بنطلون قصير', emoji: '🩳', correct: false }
+        ];
+
+        const content = document.getElementById('gameContent');
+        content.innerHTML = `
+            <div class="ppe-game">
+                <p class="game-instruction">اختر 4 أدوات ضرورية للعمل بأمان مع الكهرباء (تجنب المعادن!):</p>
+                <div class="ppe-character-scene" style="position: relative; text-align: center; margin-bottom: 20px;">
+                    <img src="assets/images/mini_games/ppe_character.png" style="max-width: 200px;" alt="Salem">
+                    <div id="selectedPPE" class="selected-ppe-list" style="margin-top: 15px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;"></div>
+                </div>
+                <div class="ppe-items-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                    ${items.map(item => `
+                        <button class="ppe-item-btn btn btn-secondary" data-id="${item.id}" style="display: flex; flex-direction: column; align-items: center; padding: 10px;">
+                            <span style="font-size: 2rem;">${item.emoji}</span>
+                            <span style="font-size: 0.8rem;">${item.name}</span>
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+
+        const footer = document.getElementById('gameFooter');
+        footer.innerHTML = `<div class="ppe-progress">تم اختيار: <span id="selectedCount">0</span> / 4</div>`;
+
+        let selected = [];
+        const btns = content.querySelectorAll('.ppe-item-btn');
+
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                const item = items.find(i => i.id === id);
+
+                if (selected.includes(id)) return;
+
+                if (item.correct) {
+                    selected.push(id);
+                    btn.classList.remove('btn-secondary');
+                    btn.classList.add('btn-primary');
+                    this.score += 25;
+                    this.updateScore();
+
+                    document.getElementById('selectedPPE').innerHTML += `<span class="found-hazard-tag">✅ ${item.name}</span>`;
+                    document.getElementById('selectedCount').textContent = selected.length;
+
+                    if (typeof SoundEffects !== 'undefined') SoundEffects.correct();
+
+                    if (selected.length === 4) {
+                        setTimeout(() => this.gameComplete(), 1000);
+                    }
+                } else {
+                    btn.classList.add('wrong');
+                    setTimeout(() => btn.classList.remove('wrong'), 500);
+                    if (typeof SoundEffects !== 'undefined') SoundEffects.wrong();
+                    alert(`⚠️ خطأ! ${item.name} غير مناسب للكهرباء (المعادن والملابس المفتوحة خطر).`);
+                }
+            });
+        });
+    },
+
+    /**
+     * Start Call Simulator game
+     */
+    startCallSimulator() {
+        this.currentGame = 'call-simulator';
+        document.getElementById('gameTitle').textContent = `📞 ${this.games.callSimulator.name}`;
+
+        const content = document.getElementById('gameContent');
+        content.innerHTML = `
+            <div class="call-simulator-game">
+                <p class="game-instruction">حدثت صدمة كهربائية! اطلب رقم الإسعاف الصحيح في مصر:</p>
+                <div class="phone-dialer" style="max-width: 300px; margin: 0 auto; background: #333; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                    <div id="dialDisplay" style="background: #eee; height: 50px; border-radius: 5px; color: #333; font-size: 2rem; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-family: monospace;"></div>
+                    <div class="dial-pad" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                        ${[1, 2, 3, 4, 5, 6, 7, 8, 9, '*', 0, '#'].map(n => `
+                            <button class="dial-btn" data-val="${n}" style="height: 60px; border-radius: 50%; border: none; background: #555; color: white; font-size: 1.5rem; cursor: pointer;">${n}</button>
+                        `).join('')}
+                    </div>
+                    <button id="callBtn" style="width: 100%; height: 60px; margin-top: 20px; border-radius: 30px; border: none; background: #26de81; color: white; font-size: 1.5rem; cursor: pointer;">📞 اتصال</button>
+                </div>
+            </div>
+        `;
+
+        let dial = "";
+        const display = document.getElementById('dialDisplay');
+
+        content.querySelectorAll('.dial-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (dial.length < 3) {
+                    dial += btn.dataset.val;
+                    display.textContent = dial;
+                    if (typeof SoundEffects !== 'undefined') SoundEffects.click();
+                }
+            });
+        });
+
+        document.getElementById('callBtn').addEventListener('click', () => {
+            if (dial === "123") {
+                this.score = 100;
+                this.updateScore();
+                if (typeof SoundEffects !== 'undefined') SoundEffects.correct();
+                alert("✅ أحسنت! 123 هو رقم الإسعاف الصحيح في مصر.");
+                this.gameComplete();
+            } else {
+                dial = "";
+                display.textContent = "";
+                if (typeof SoundEffects !== 'undefined') SoundEffects.wrong();
+                alert("❌ رقم خطأ! حاول مرة أخرى. تلميح: رقم الإسعاف مكون من 3 أرقام.");
+            }
+        });
     },
 
     /**
