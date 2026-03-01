@@ -566,13 +566,11 @@ const DialogueTour = {
                 };
 
                 videoEl.play().catch(e => {
-                    console.warn('Video play failed, falling back to TTS:', e);
-                    // Fallback to TTS if video fails
+                    console.warn('Video play failed, falling back to local TTS:', e);
+                    // Fallback to local TTS if video fails
                     characterContainer.classList.remove('has-video');
-                    if ((dialogue.speech || dialogue.text) && typeof TextToSpeech !== 'undefined') {
-                        TextToSpeech.speak(dialogue.speech || dialogue.text, {
-                            character: dialogue.character
-                        });
+                    if ((dialogue.speech || dialogue.text) && typeof AudioNarration !== 'undefined') {
+                        AudioNarration.speak(dialogue.speech || dialogue.text, dialogue.character);
                     }
                 });
 
@@ -580,24 +578,20 @@ const DialogueTour = {
                 videoEl.onerror = () => {
                     console.warn(`Video file not found: ${dialogue.video}`);
                     characterContainer.classList.remove('has-video');
-                    // Fallback to TTS
-                    if ((dialogue.speech || dialogue.text) && typeof TextToSpeech !== 'undefined') {
-                        TextToSpeech.speak(dialogue.speech || dialogue.text, {
-                            character: dialogue.character
-                        });
+                    // Fallback to local TTS
+                    if ((dialogue.speech || dialogue.text) && typeof AudioNarration !== 'undefined') {
+                        AudioNarration.speak(dialogue.speech || dialogue.text, dialogue.character);
                     }
                 };
             }
 
         } else {
-            // mode: IMAGE + TTS (Existing Logic)
+            // mode: IMAGE + local TTS
             characterContainer.classList.remove('has-video');
 
             // Speak text
-            if ((dialogue.speech || dialogue.text) && typeof TextToSpeech !== 'undefined') {
-                TextToSpeech.speak(dialogue.speech || dialogue.text, {
-                    character: dialogue.character
-                });
+            if ((dialogue.speech || dialogue.text) && typeof AudioNarration !== 'undefined') {
+                AudioNarration.speak(dialogue.speech || dialogue.text, dialogue.character);
             }
         }
 
@@ -718,8 +712,8 @@ const DialogueTour = {
         this.removeHighlight();
 
         // Stop audio if any
-        if (typeof TextToSpeech !== 'undefined') {
-            TextToSpeech.stop();
+        if (typeof AudioNarration !== 'undefined') {
+            window.speechSynthesis.cancel();
         }
 
         // Play completion sound

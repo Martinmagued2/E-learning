@@ -525,6 +525,17 @@ const App = {
                 content += `<p>${item.value}</p>`;
             } else if (item.type === 'image') {
                 content += `<img src="${item.value}" alt="صورة توضيحية" class="lesson-image">`;
+            } else if (item.type === 'game') {
+                content += `
+                    <div style="text-align: center; margin: 30px 0; padding: 30px; background: rgba(255,255,255,0.05); border-radius: 15px; border: 2px dashed var(--primary-blue);">
+                        <div style="font-size: 3rem; margin-bottom: 15px;">🎮</div>
+                        <h3 style="margin-bottom: 10px;">نشاط تفاعلي: ${item.label || 'لعبة تعليمية'}</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">يجب إكمال هذا النشاط للمتابعة</p>
+                        <button class="btn btn-primary btn-large" onclick="MiniGames.startGame('${item.value}')">
+                            ابدأ النشاط الآن
+                        </button>
+                    </div>
+                `;
             } else if (item.type === 'file') {
                 content += `
                     <div style="text-align: center; margin: 20px 0;">
@@ -613,8 +624,21 @@ const App = {
 
         if (nextBtn) {
             const isLastLesson = this.currentLessonIndex === this.currentCourse.lessons.length - 1;
-            nextBtn.disabled = isLastLesson;
-            nextBtn.style.opacity = isLastLesson ? '0.5' : '1';
+            const lesson = this.currentCourse.lessons[this.currentLessonIndex];
+
+            // Mandatory activity check
+            const needsActivity = lesson.game || (isLastLesson && this.currentCourse.scenarios && this.currentCourse.scenarios.length > 0);
+            const activityCompleted = Storage.isLessonActivityCompleted(this.currentCourse.id, lesson.id);
+
+            if (needsActivity && !activityCompleted) {
+                nextBtn.disabled = true;
+                nextBtn.style.opacity = '0.5';
+                nextBtn.title = 'يجب إكمال النشاط أولاً للمتابعة';
+            } else {
+                nextBtn.disabled = isLastLesson;
+                nextBtn.style.opacity = isLastLesson ? '0.5' : '1';
+                nextBtn.title = '';
+            }
         }
     },
 

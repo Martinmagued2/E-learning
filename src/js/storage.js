@@ -28,6 +28,45 @@ const Storage = {
     },
 
     /**
+     * Mark lesson activity as completed
+     */
+    markLessonActivityCompleted(courseId, lessonId) {
+        try {
+            const completed = this.getCompletedLessonActivities();
+            const key = `${courseId}-${lessonId}`;
+
+            if (!completed.includes(key)) {
+                completed.push(key);
+                localStorage.setItem('completedLessonActivities', JSON.stringify(completed));
+            }
+            return true;
+        } catch (error) {
+            console.error('Error marking lesson activity completed:', error);
+            return false;
+        }
+    },
+
+    /**
+     * Get completed lesson activities
+     */
+    getCompletedLessonActivities() {
+        try {
+            const data = localStorage.getItem('completedLessonActivities');
+            return data ? JSON.parse(data) : [];
+        } catch (error) {
+            return [];
+        }
+    },
+
+    /**
+     * Check if lesson activity is completed
+     */
+    isLessonActivityCompleted(courseId, lessonId) {
+        const completed = this.getCompletedLessonActivities();
+        return completed.includes(`${courseId}-${lessonId}`);
+    },
+
+    /**
      * Get student name
      */
     getStudentName() {

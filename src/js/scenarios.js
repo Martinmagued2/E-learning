@@ -55,6 +55,12 @@ const Scenarios = {
 
         console.log('Rendering scenario:', scenario);
 
+        // Check if this is a game activity
+        if (scenario.type === 'game' && typeof MiniGames !== 'undefined') {
+            this.startMiniGameFromScenario(scenario);
+            return;
+        }
+
         // Check if this is a click-identify activity
         if (scenario.type === 'click-identify') {
             ClickActivity.start(scenario);
@@ -214,6 +220,38 @@ const Scenarios = {
     },
 
     /**
+     * Start a mini-game as part of scenarios
+     */
+    startMiniGameFromScenario(scenario) {
+        // Show a "Splash" screen first or go straight to game
+        MiniGames.startGame(scenario.game);
+
+        // We need to override the mini-game close logic to return here
+        const originalClose = MiniGames.close;
+        const originalGameComplete = MiniGames.gameComplete;
+
+        MiniGames.close = () => {
+            originalClose.apply(MiniGames);
+            MiniGames.close = originalClose;
+            MiniGames.gameComplete = originalGameComplete;
+            // Don't advance index, just show this scenario again
+            this.renderScenario();
+        };
+
+        MiniGames.gameComplete = () => {
+            originalGameComplete.apply(MiniGames);
+            MiniGames.close = originalClose;
+            MiniGames.gameComplete = originalGameComplete;
+
+            // Advance to next scenario after a delay
+            setTimeout(() => {
+                MiniGames.close();
+                this.nextScenario();
+            }, 3000);
+        };
+    },
+
+    /**
      * Show scenarios results
      */
     showResults() {
@@ -223,6 +261,13 @@ const Scenarios = {
 
         // Save scenarios completion
         Storage.saveScenarioScore(this.currentScenario.courseId, this.score, totalScenarios);
+
+        // Mark lesson activity as completed
+        if (typeof App !== 'undefined' && App.currentCourse && App.currentCourse.lessons[App.currentLessonIndex]) {
+            const lesson = App.currentCourse.lessons[App.currentLessonIndex];
+            Storage.markLessonActivityCompleted(App.currentCourse.id, lesson.id);
+            App.updateLessonNavigation();
+        }
 
         // Check for any new achievements
         if (typeof Achievements !== 'undefined') {
