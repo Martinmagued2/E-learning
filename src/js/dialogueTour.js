@@ -325,8 +325,8 @@ const DialogueTour = {
             {
                 character: 'salem',
                 expression: 'explaining',
-                text: 'صحيح! لديك 15 ثانية فقط لكل سؤال. العداد هنا ⏳',
-                speech: 'صحيح! لديك خمسة عشر ثانية فقط لكل سؤال. العداد هنا',
+                text: 'صحيح! لديك 45 ثانية لكل سؤال. العداد هنا ⏳',
+                speech: 'صحيح! لديك خمسة وأربعين ثانية لكل سؤال. العداد هنا',
                 highlight: '.timer-container'
             },
             {

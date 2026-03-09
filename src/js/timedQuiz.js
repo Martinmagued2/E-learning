@@ -5,7 +5,7 @@
 
 const TimedQuiz = {
     isEnabled: false,
-    timePerQuestion: 15, // seconds
+    timePerQuestion: 45, // seconds
     totalTime: 0,
     remainingTime: 0,
     timerInterval: null,
@@ -17,7 +17,7 @@ const TimedQuiz = {
      * @param {Object} options - Configuration options
      */
     init(options = {}) {
-        this.timePerQuestion = options.timePerQuestion || 30;
+        this.timePerQuestion = options.timePerQuestion || 45;
         this.onTimeUp = options.onTimeUp || null;
         this.isEnabled = true;
     },
@@ -34,7 +34,7 @@ const TimedQuiz = {
         timer.className = 'quiz-timer';
         timer.innerHTML = `
             <span class="quiz-timer-icon">⏱️</span>
-            <span class="quiz-timer-value" id="timerValue">00:30</span>
+            <span class="quiz-timer-value" id="timerValue">00:45</span>
         `;
 
         // Insert into quiz header
