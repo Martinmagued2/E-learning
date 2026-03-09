@@ -1,6 +1,7 @@
 /**
  * Emergency Call Simulator
- * Interactive practice for reporting emergencies correctly
+ * Interactive practice for reporting electrical emergencies correctly
+ * Themed for the Electrical Safety module
  */
 
 const EmergencySimulator = {
@@ -8,17 +9,19 @@ const EmergencySimulator = {
     currentStep: 0,
     startTime: 0,
     timer: null,
+    completed: false,
 
     scenarios: [
         {
-            id: 'fire',
-            title: 'حريق في المطبخ',
-            description: 'لاحظت نشوب حريق في مطبخ الشركة بسبب زيت القلي.',
-            correctNumber: '998',
+            id: 'electrical',
+            title: 'صدمة كهربائية',
+            description: 'شخص لمس سلكاً كهربائياً مكشوفاً وتعرض لصدمة كهربائية!',
+            correctNumber: '123',
             steps: [
-                { question: 'ما هو نوع الحالة الطارئة؟', options: ['حريق', 'إصابة عمل', 'تسرب غاز'], correct: 0 },
-                { question: 'أين موقع الحريق بالضبط؟', options: ['المكتب الرئيسي', 'المطبخ في الدور الثاني', 'المخزن'], correct: 1 },
-                { question: 'هل هناك إصابات؟', options: ['نعم، شخص واحد', 'لا توجد إصابات', 'لا أعلم'], correct: 1 }
+                { question: 'ما هو نوع الحالة الطارئة؟', options: ['صدمة كهربائية', 'حريق', 'تسرب غاز'], correct: 0 },
+                { question: 'ما أول شيء يجب فعله؟', options: ['لمس الشخص لسحبه', 'فصل مصدر الكهرباء أولاً', 'سكب ماء عليه'], correct: 1 },
+                { question: 'هل يمكنك لمس الشخص المصاب مباشرة؟', options: ['نعم، لإنقاذه', 'لا، قد أتعرض للصدمة أيضاً', 'نعم باستخدام يد مبللة'], correct: 1 },
+                { question: 'ما الرقم الصحيح للإسعاف في مصر؟', options: ['180', '122', '123'], correct: 2 }
             ]
         }
     ],
@@ -28,6 +31,7 @@ const EmergencySimulator = {
         this.isActive = true;
         this.currentStep = 0;
         this.startTime = Date.now();
+        this.completed = false;
 
         this.renderUI(scenario);
 
@@ -43,15 +47,19 @@ const EmergencySimulator = {
         overlay.innerHTML = `
             <div class="emergency-container">
                 <div class="emergency-header">
-                    <h2>🚨 محاكي اتصال الطوارئ</h2>
+                    <button class="btn btn-secondary btn-back" onclick="EmergencySimulator.goBack()" style="font-size: 0.9rem;">
+                        <span class="btn-icon">→</span>
+                        <span>رجوع</span>
+                    </button>
+                    <h2>⚡ محاكي طوارئ كهربائية</h2>
                     <div class="emergency-timer" id="emergencyTimer">00:00</div>
                 </div>
                 <div class="emergency-body" id="emergencyBody">
                     <p class="scenario-desc">${scenario.description}</p>
                     <div class="phone-dialer">
-                        <input type="text" id="dialDisplay" readonly placeholder="ادخل الرقم...">
+                        <input type="text" id="dialDisplay" readonly placeholder="ادخل رقم الإسعاف...">
                         <div class="dial-pad">
-                            ${[1,2,3,4,5,6,7,8,9,'*',0,'#'].map(n => `<button onclick="EmergencySimulator.dial('${n}')">${n}</button>`).join('')}
+                            ${[1, 2, 3, 4, 5, 6, 7, 8, 9, '*', 0, '#'].map(n => `<button onclick="EmergencySimulator.dial('${n}')">${n}</button>`).join('')}
                         </div>
                         <button class="call-btn" onclick="EmergencySimulator.checkNumber('${scenario.correctNumber}')">📞 اتصال</button>
                     </div>
@@ -76,14 +84,14 @@ const EmergencySimulator = {
             this.showReportingSteps();
         } else {
             if (typeof SoundEffects !== 'undefined') SoundEffects.wrong();
-            alert('الرقم خاطئ! حاول مرة أخرى.');
+            alert('الرقم خاطئ! رقم الإسعاف في مصر هو 123. حاول مرة أخرى.');
             display.value = '';
         }
     },
 
     showReportingSteps() {
         const body = document.getElementById('emergencyBody');
-        const scenario = this.scenarios[0]; // Simplified
+        const scenario = this.scenarios[0];
         this.currentStep = 0;
         this.renderStep(body, scenario);
     },
@@ -114,11 +122,12 @@ const EmergencySimulator = {
             }
         } else {
             if (typeof SoundEffects !== 'undefined') SoundEffects.wrong();
-            alert('إجابة غير دقيقة، ركز في الموقف!');
+            alert('إجابة غير صحيحة! فكر في الخطوة الأهم عند التعامل مع الكهرباء.');
         }
     },
 
     complete() {
+        this.completed = true;
         clearInterval(this.timer);
         const endTime = Date.now();
         const duration = Math.floor((endTime - this.startTime) / 1000);
@@ -129,7 +138,8 @@ const EmergencySimulator = {
                 <div class="success-icon">✅</div>
                 <h2>تم التبليغ بنجاح!</h2>
                 <p>الوقت المستغرق: ${duration} ثانية</p>
-                <button class="btn btn-primary" onclick="EmergencySimulator.close()">إغلاق</button>
+                <p style="margin-top: 10px; color: var(--text-muted);">تعلمت كيف تتعامل مع حالات الطوارئ الكهربائية بشكل صحيح! تذكر دائماً: افصل الكهرباء أولاً ولا تلمس الشخص المصاب مباشرة.</p>
+                <button class="btn btn-primary" onclick="EmergencySimulator.close()">إغلاق ✅</button>
             </div>
         `;
 
@@ -145,6 +155,12 @@ const EmergencySimulator = {
             const timerEl = document.getElementById('emergencyTimer');
             if (timerEl) timerEl.textContent = `${mins}:${secs}`;
         }, 1000);
+    },
+
+    goBack() {
+        if (confirm('هل تريد الخروج من المحاكي؟')) {
+            this.close();
+        }
     },
 
     close() {

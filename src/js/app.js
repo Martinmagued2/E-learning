@@ -28,8 +28,6 @@ const App = {
         // Load courses data
         await this.loadCoursesData();
 
-        // Initialize text-to-speech
-        TextToSpeech.init();
 
         // Initialize guided tour (DialogueTour replaced old GuidedTour)
         if (typeof DialogueTour !== 'undefined') {
@@ -64,8 +62,8 @@ const App = {
 
             // Allow returning users to see tour if they haven't seen it (or force it for now)
             if (typeof DialogueTour !== 'undefined') {
-                // Force true to ensure user sees it now
-                setTimeout(() => DialogueTour.startTour('welcome', true), 1000);
+                // Remove force true so it only plays once
+                setTimeout(() => DialogueTour.startTour('welcome'), 1000);
             }
         } else {
             // New user / Fresh start - ensure input is cleared
@@ -77,7 +75,7 @@ const App = {
             // Start welcome tour (New Character Dialogue Tour)
             // Force start to ensure user sees it
             if (typeof DialogueTour !== 'undefined') {
-                setTimeout(() => DialogueTour.startTour('welcome', true), 1000);
+                setTimeout(() => DialogueTour.startTour('welcome'), 1000);
             }
         }
     },
@@ -147,7 +145,7 @@ const App = {
                 // Start dashboard tour if first time
                 // Always start the dialogue tour when entering dashboard for the first time in session
                 if (typeof DialogueTour !== 'undefined') {
-                    setTimeout(() => DialogueTour.startTour('dashboard', true), 1000);
+                    setTimeout(() => DialogueTour.startTour('dashboard'), 1000);
                 }
             });
 
@@ -230,9 +228,7 @@ const App = {
             targetScreen.classList.add('active');
         }
 
-        // Stop audio when changing screens
         AudioNarration.stop();
-        TextToSpeech.stop();
     },
 
     /**
@@ -594,8 +590,11 @@ const App = {
         // Update navigation buttons
         this.updateLessonNavigation();
 
-        // Mark lesson as completed
-        Storage.markLessonCompleted(this.currentCourse.id, lesson.id);
+        // Mark lesson as completed only if no interactive game, or defer completion
+        const hasGame = this.hasInteractiveGame(lesson);
+        if (!hasGame) {
+            Storage.markLessonCompleted(this.currentCourse.id, lesson.id);
+        }
 
         // Check for any new achievements (like "First Step")
         if (typeof Achievements !== 'undefined') {
@@ -610,11 +609,63 @@ const App = {
      * Navigate to next/previous lesson
      */
     navigateLesson(direction) {
+        // Check if current lesson has a mandatory mini-game that isn't completed
+        if (direction > 0 && this.currentCourse) {
+            const currentLesson = this.currentCourse.lessons[this.currentLessonIndex];
+            if (currentLesson && this.hasInteractiveGame(currentLesson)) {
+                if (!this.isGameCompleted(currentLesson)) {
+                    alert('⚠️ يجب إكمال النشاط التفاعلي (اللعبة) قبل الانتقال للدرس التالي!');
+                    return;
+                } else {
+                    // Game completed, mark lesson as completed now
+                    Storage.markLessonCompleted(this.currentCourse.id, currentLesson.id);
+                }
+            }
+        }
+
         const newIndex = this.currentLessonIndex + direction;
 
         if (newIndex >= 0 && newIndex < this.currentCourse.lessons.length) {
             this.loadLesson(newIndex);
         }
+    },
+
+    /**
+     * Check if a lesson has an interactive game
+     */
+    hasInteractiveGame(lesson) {
+        if (!lesson || !lesson.content) return false;
+        return lesson.content.some(item => item.type === 'interactive');
+    },
+
+    /**
+     * Check if the interactive game in a lesson has been completed
+     */
+    isGameCompleted(lesson) {
+        if (!lesson || !lesson.content) return true;
+        const interactiveItem = lesson.content.find(item => item.type === 'interactive');
+        if (!interactiveItem) return true;
+
+        const gameId = interactiveItem.game || interactiveItem.value;
+        if (!gameId) return true;
+
+        // Map game IDs to their global objects and check completed flag
+        const gameMap = {
+            'spotDifference': typeof SpotDifference !== 'undefined' ? SpotDifference : null,
+            'escapeRoom': typeof EscapeRoom !== 'undefined' ? EscapeRoom : null,
+            'safetyArcade': typeof SafetyArcade !== 'undefined' ? SafetyArcade : null,
+            'emergencySimulator': typeof EmergencySimulator !== 'undefined' ? EmergencySimulator : null,
+            'PPEGame': typeof PPEGame !== 'undefined' ? PPEGame : null,
+            'hazardMap': typeof HazardMap !== 'undefined' ? HazardMap : null
+        };
+
+        const gameObj = gameMap[gameId];
+        if (gameObj && typeof gameObj.completed !== 'undefined') {
+            return gameObj.completed === true;
+        }
+
+        // Unknown game, allow navigation
+        return true;
     },
 
     /**

@@ -7,10 +7,12 @@ const HazardMap = {
     isActive: false,
     resolvedCount: 0,
     totalHazards: 3,
+    completed: false,
 
     start() {
         this.isActive = true;
         this.resolvedCount = 0;
+        this.completed = false;
         this.renderUI();
 
         if (typeof DialogueTour !== 'undefined') {
@@ -24,8 +26,12 @@ const HazardMap = {
         overlay.className = 'game-overlay';
         overlay.innerHTML = `
             <div class="map-container">
-                <div class="map-header">
-                    <h2>🗺️ خريطة مخاطر الموقع</h2>
+                <div class="map-header" style="display: flex; align-items: center; gap: 15px;">
+                    <button class="btn btn-secondary btn-back" onclick="HazardMap.goBack()" style="font-size: 0.9rem;">
+                        <span class="btn-icon">→</span>
+                        <span>رجوع</span>
+                    </button>
+                    <h2 style="margin: 0; flex: 1;">🗺️ خريطة مخاطر الموقع</h2>
                     <div class="map-progress">النقاط المؤمنة: <span id="mapCount">0</span>/${this.totalHazards}</div>
                 </div>
                 <div class="map-body" id="mapBody">
@@ -106,17 +112,24 @@ const HazardMap = {
     },
 
     complete() {
+        this.completed = true;
         const body = document.getElementById('mapBody');
         body.innerHTML = `
             <div class="completion-screen">
                 <div class="success-icon">🛡️</div>
                 <h2>الموقع الآن آمن للجميع!</h2>
                 <p>لقد نجحت في تأمين جميع النقاط الخطرة في المنشأة.</p>
-                <button class="btn btn-primary" onclick="HazardMap.close()">إغلاق</button>
+                <button class="btn btn-primary" onclick="HazardMap.close()">العودة للدرس ✅</button>
             </div>
         `;
         if (typeof SoundEffects !== 'undefined') SoundEffects.success();
         if (typeof Confetti !== 'undefined') Confetti.celebrate();
+    },
+
+    goBack() {
+        if (confirm('هل تريد الخروج؟ سيتم فقدان تقدمك.')) {
+            this.close();
+        }
     },
 
     close() {

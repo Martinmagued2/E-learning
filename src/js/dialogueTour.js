@@ -8,6 +8,8 @@ const DialogueTour = {
     currentScene: null,
     currentDialogueIndex: 0,
     characters: {},
+    currentAudio: null,
+    currentAudioSrc: null,
 
     // Storage key for tracking completed tours
     STORAGE_KEY: 'completedTours',
@@ -162,37 +164,43 @@ const DialogueTour = {
                 character: 'nour',
                 expression: 'excited',
                 text: 'أخبرني عن الألعاب! 🎮',
-                speech: 'أخبرني عن الألعاب'
+                speech: 'أخبرني عن الألعاب',
+                highlight: '.tools-section'
             },
             {
                 character: 'salem',
                 expression: 'happy',
-                text: 'لدينا ثلاثة ألعاب: اكتشف الخطر، المطابقة، والفرز!',
-                speech: 'لدينا ثلاثة ألعاب'
+                text: 'لديناألعاب كثيرة و مثيرة. بعض منهم في الدروس و هناك المزيد هنا!',
+                speech: 'لدينا ألعاب كثيرة',
+                highlight: '#openMiniGames'
             },
             {
                 character: 'nour',
                 expression: 'curious',
                 text: 'وماذا عن البطاقات التعليمية؟ 🃏',
-                speech: 'وماذا عن البطاقات التعليمية'
+                speech: 'وماذا عن البطاقات التعليمية',
+                highlight: '#openFlashcards'
             },
             {
                 character: 'salem',
                 expression: 'explaining',
                 text: 'البطاقات تساعدك على المراجعة السريعة. اقلبها لتري الإجابة!',
-                speech: 'البطاقات تساعدك على المراجعة السريعة'
+                speech: 'البطاقات تساعدك على المراجعة السريعة',
+                highlight: '#openFlashcards'
             },
             {
                 character: 'nour',
                 expression: 'happy',
                 text: 'وهناك قاموس للمصطلحات أيضاً! 📖',
-                speech: 'وهناك قاموس للمصطلحات'
+                speech: 'وهناك قاموس للمصطلحات',
+                highlight: '#openGlossary'
             },
             {
                 character: 'salem',
                 expression: 'happy',
                 text: 'صحيح! يحتوي على جميع مصطلحات السلامة بالعربية',
-                speech: 'صحيح! يحتوي على جميع مصطلحات السلامة'
+                speech: 'صحيح! يحتوي على جميع مصطلحات السلامة',
+                highlight: '#openGlossary'
             }
         ],
 
@@ -271,41 +279,7 @@ const DialogueTour = {
             }
         ],
 
-        lesson: [
-            {
-                character: 'salem',
-                expression: 'happy',
-                text: 'أهلاً بك في الدرس! 📚',
-                speech: 'أهلاً بك في الدرس'
-            },
-            {
-                character: 'nour',
-                expression: 'excited',
-                text: 'سنتعلم أشياء جديدة ومفيدة اليوم! ✨',
-                speech: 'سنتعلم أشياء جديدة ومفيدة اليوم'
-            },
-            {
-                character: 'salem',
-                expression: 'explaining',
-                text: 'يمكنك مشاهدة الفيديو التعليمي هنا 🎥',
-                speech: 'يمكنك مشاهدة الفيديو التعليمي هنا',
-                highlight: 'video'
-            },
-            {
-                character: 'nour',
-                expression: 'happy',
-                text: 'واقرأ المحتوى المكتوب بعناية لفهم الدرس جيداً 📖',
-                speech: 'واقرأ المحتوى المكتوب بعناية لفهم الدرس جيداً',
-                highlight: '.lesson-content'
-            },
-            {
-                character: 'salem',
-                expression: 'happy',
-                text: 'عندما تنتهي، اضغط هنا للانتقال للدرس التالي ⬅️',
-                speech: 'عندما تنتهي، اضغط هنا للانتقال للدرس التالي',
-                highlight: '.lesson-navigation button:last-child'
-            }
-        ],
+
 
         scenarios: [
             {
@@ -394,8 +368,8 @@ const DialogueTour = {
             {
                 character: 'salem',
                 expression: 'explaining',
-                text: 'في حالات الطوارئ، كل ثانية تفرق! هذا المحاكي سيساعدك على التدرب.',
-                speech: 'في حالات الطوارئ، كل ثانية تفرق! هذا المحاكي سيساعدك على التدرب.'
+                text: 'في حالات الطوارئ الكهربائية، كل ثانية تفرق! هذا المحاكي سيساعدك على التدرب.',
+                speech: 'في حالات الطوارئ الكهربائية، كل ثانية تفرق! هذا المحاكي سيساعدك على التدرب.'
             },
             {
                 character: 'nour',
@@ -406,14 +380,14 @@ const DialogueTour = {
             {
                 character: 'salem',
                 expression: 'happy',
-                text: 'نعم، اتصلي بالرقم الصحيح وأخبريهم بالمعلومات المطلوبة بسرعة!',
-                speech: 'نعم، اتصلي بالرقم الصحيح وأخبريهم بالمعلومات المطلوبة بسرعة!'
+                text: 'نعم، اتصلي برقم الإسعاف الصحيح وتعلمي كيف تتصرفي مع الصدمة الكهربائية!',
+                speech: 'نعم، اتصلي برقم الإسعاف الصحيح وتعلمي كيف تتصرفي مع الصدمة الكهربائية!'
             },
             {
                 character: 'nour',
                 expression: 'excited',
-                text: 'سأكون سريعة ومنظمة، تماماً كأبطال الإطفاء! 💪',
-                speech: 'سأكون سريعة ومنظمة، تماماً كأبطال الإطفاء!'
+                text: 'سأكون سريعة ومنظمة! أهم شيء فصل الكهرباء أولاً! 💪',
+                speech: 'سأكون سريعة ومنظمة! أهم شيء فصل الكهرباء أولاً!'
             }
         ],
 
@@ -529,26 +503,107 @@ const DialogueTour = {
             {
                 character: 'salem',
                 expression: 'explaining',
-                text: 'مرحباً بك في أركيد السلامة! لنتعلم من خلال اللعب السريع.',
-                speech: 'مرحباً بك في أركيد السلامة! لنتعلم من خلال اللعب السريع.'
+                text: 'مرحباً بك في تحدي إشارات المرور! هيا نختبر معرفتك بقواعد الطريق.',
+                speech: 'مرحباً بك في تحدي إشارات المرور! هيا نختبر معرفتك بقواعد الطريق.'
             },
             {
                 character: 'nour',
                 expression: 'curious',
-                text: 'ما هي قواعد اللعبة؟ 🎮',
+                text: 'ما هي قواعد اللعبة؟ 🚦',
                 speech: 'ما هي قواعد اللعبة؟'
             },
             {
                 character: 'salem',
                 expression: 'happy',
-                text: 'التقطي أدوات السلامة وتجنبي المخاطر المتساقطة باستخدام الأسهم.',
-                speech: 'التقطي أدوات السلامة وتجنبي المخاطر المتساقطة باستخدام الأسهم.'
+                text: 'ستظهر لك إشارات مرور وأسئلة عن السلامة في الشارع. اختاري الإجابة الصحيحة!',
+                speech: 'ستظهر لك إشارات مرور وأسئلة عن السلامة في الشارع. اختاري الإجابة الصحيحة!'
             },
             {
                 character: 'nour',
                 expression: 'excited',
-                text: 'هيا بنا! سأحطم الرقم القياسي في السلامة! 🚀',
-                speech: 'هيا بنا! سأحطم الرقم القياسي في السلامة!'
+                text: 'هيا بنا! سأثبت أنني خبيرة مرور! 🚀',
+                speech: 'هيا بنا! سأثبت أنني خبيرة مرور!'
+            }
+        ],
+
+        spotHazard: [
+            {
+                character: 'salem',
+                expression: 'explaining',
+                text: 'في هذه اللعبة، يجب أن تكون قوة ملاحظتك عالية لاكتشاف الأخطار! 👀',
+                speech: 'في هذه اللعبة، يجب أن تكون قوة ملاحظتك عالية لاكتشاف الأخطار!'
+            },
+            {
+                character: 'nour',
+                expression: 'curious',
+                text: 'كيف ألعب؟ وما المطلوب مني؟ 🤔',
+                speech: 'كيف ألعب؟ وما المطلوب مني؟'
+            },
+            {
+                character: 'salem',
+                expression: 'happy',
+                text: 'ابحث في الصورة واضغط على أي شيء تعتقد أنه يشكل خطراً! ⚠️',
+                speech: 'ابحث في الصورة واضغط على أي شيء تعتقد أنه يشكل خطراً!'
+            },
+            {
+                character: 'nour',
+                expression: 'excited',
+                text: 'حسناً! لن يفوتني أي خطأ! 🔍',
+                speech: 'حسناً! لن يفوتني أي خطأ!'
+            }
+        ],
+
+        matching: [
+            {
+                character: 'salem',
+                expression: 'explaining',
+                text: 'لعبة المطابقة تختبر ذاكرتك ومعرفتك بأدوات السلامة! 🃏',
+                speech: 'لعبة المطابقة تختبر ذاكرتك ومعرفتك بأدوات السلامة!'
+            },
+            {
+                character: 'nour',
+                expression: 'curious',
+                text: 'كيف يمكنني الفوز؟ 🏆',
+                speech: 'كيف يمكنني الفوز؟'
+            },
+            {
+                character: 'salem',
+                expression: 'happy',
+                text: 'اقلب البطاقات وحاول إيجاد كل زوج متشابه بأسرع وقت! ✨',
+                speech: 'اقلب البطاقات وحاول إيجاد كل زوج متشابه بأسرع وقت!'
+            },
+            {
+                character: 'nour',
+                expression: 'excited',
+                text: 'ذاكرتي قوية جداً! سأجمعهم كلهم! 🧠',
+                speech: 'ذاكرتي قوية جداً! سأجمعهم كلهم!'
+            }
+        ],
+
+        sorting: [
+            {
+                character: 'salem',
+                expression: 'explaining',
+                text: 'في لعبة فرز السلامة، يجب أن تكون سريعاً ومنظماً! 📦',
+                speech: 'في لعبة فرز السلامة، يجب أن تكون سريعاً ومنظماً!'
+            },
+            {
+                character: 'nour',
+                expression: 'curious',
+                text: 'ما الذي يجب علي ترتيبه؟ 🤔',
+                speech: 'ما الذي يجب علي ترتيبه؟'
+            },
+            {
+                character: 'salem',
+                expression: 'happy',
+                text: 'اسحب كل عنصر وضعه في الصندوق أو الفئة الصحيحة الخاصة به! 🖱️',
+                speech: 'اسحب كل عنصر وضعه في الصندوق أو الفئة الصحيحة الخاصة به!'
+            },
+            {
+                character: 'nour',
+                expression: 'excited',
+                text: 'جميل! الترتيب الصحيح يمنع الحوادث! هيا بنا! 🚀',
+                speech: 'جميل! الترتيب الصحيح يمنع الحوادث! هيا بنا!'
             }
         ],
 
@@ -673,11 +728,11 @@ const DialogueTour = {
 
             <!-- Control Bar at Bottom -->
             <div class="dialogue-controls-bar">
-                <button class="btn btn-secondary" id="skipTour">تخطي الشرح</button>
+                <button class="btn btn-secondary" id="skipTour" style="display: none;">تخطي الشرح</button>
                 <div class="dialogue-progress" id="dialogueProgress">
                     <span id="totalSteps">5</span> / <span id="currentStep">1</span>
                 </div>
-                <button class="btn btn-primary tour-btn-next" id="nextDialogue">
+                <button class="btn btn-primary tour-btn-next" id="nextDialogue" style="display: none;">
                     <span>التالي</span>
                     <span class="btn-icon">→</span>
                 </button>
@@ -744,24 +799,16 @@ const DialogueTour = {
             document.querySelectorAll('.character-wrapper').forEach(el => el.classList.add('active'));
         }, 100);
 
-        // Aggressively preload ALL audio for this tour
+        // Preload audio files for this tour
         const dialogueSteps = this.dialogues[tourName];
-        if (typeof TextToSpeech !== 'undefined' && dialogueSteps) {
+        if (dialogueSteps) {
             dialogueSteps.forEach((step, index) => {
-                // Preload everything, prioritizing the immediate next few steps for better flow
-                // We assume startTour is called when user is ready, so firing these off is fine.
-                const text = step.speech || step.text;
-                if (text) {
-                    // Small stagger to not choke the network immediately if there are many
-                    setTimeout(() => {
-                        TextToSpeech.preload(text, step.character);
-                    }, index * 100);
-                }
+                const audioSrc = step.audio || `assets/audio/dialogue/${tourName}_${index}.m4a`;
+                const audio = new Audio();
+                audio.src = audioSrc;
             });
         }
 
-        // Show first dialogue
-        this.showDialogue(0);
         // Show first dialogue
         this.showDialogue(0);
     },
@@ -819,25 +866,19 @@ const DialogueTour = {
 
                 videoEl.play().catch(e => {
                     console.warn('Video play failed, falling back to TTS:', e);
-                    // Fallback to TTS if video fails
+                    // Fallback to Audio if video fails
                     characterContainer.classList.remove('has-video');
-                    if ((dialogue.speech || dialogue.text) && typeof TextToSpeech !== 'undefined') {
-                        TextToSpeech.speak(dialogue.speech || dialogue.text, {
-                            character: dialogue.character
-                        });
-                    }
+                    const audioSrc = dialogue.audio || `assets/audio/dialogue/${this.currentScene}_${index}.m4a`;
+                    this.playAudio(audioSrc);
                 });
 
                 // Handle video load error (e.g. file not found)
                 videoEl.onerror = () => {
                     console.warn(`Video file not found: ${dialogue.video}`);
                     characterContainer.classList.remove('has-video');
-                    // Fallback to TTS
-                    if ((dialogue.speech || dialogue.text) && typeof TextToSpeech !== 'undefined') {
-                        TextToSpeech.speak(dialogue.speech || dialogue.text, {
-                            character: dialogue.character
-                        });
-                    }
+                    // Fallback to Audio
+                    const audioSrc = dialogue.audio || `assets/audio/dialogue/${this.currentScene}_${index}.m4a`;
+                    this.playAudio(audioSrc);
                 };
             }
 
@@ -845,12 +886,9 @@ const DialogueTour = {
             // mode: IMAGE + TTS (Existing Logic)
             characterContainer.classList.remove('has-video');
 
-            // Speak text
-            if ((dialogue.speech || dialogue.text) && typeof TextToSpeech !== 'undefined') {
-                TextToSpeech.speak(dialogue.speech || dialogue.text, {
-                    character: dialogue.character
-                });
-            }
+            // Play audio
+            const audioSrc = dialogue.audio || `assets/audio/dialogue/${this.currentScene}_${index}.m4a`;
+            this.playAudio(audioSrc, true);
         }
 
         // Update progress
@@ -932,18 +970,45 @@ const DialogueTour = {
     },
 
     /**
-     * End tour and mark as completed
+     * Play recorded audio file for dialogue
      */
-    /**
-     * Stop all character videos
-     */
-    stopVideos() {
-        document.querySelectorAll('.character-video').forEach(video => {
-            video.pause();
-            video.currentTime = 0;
-            video.src = ''; // Release resource
+    playAudio(src, autoAdvance = false) {
+        if (this.currentAudioSrc === src && this.currentAudio && !this.currentAudio.paused) {
+            // Already playing this exact audio, don't restart it
+            return;
+        }
+
+        this.stopAudio();
+
+        this.currentAudioSrc = src;
+        this.currentAudio = new Audio(src);
+
+        if (autoAdvance) {
+            this.currentAudio.onended = () => {
+                this.nextDialogue();
+            };
+        }
+
+        this.currentAudio.play().catch(e => {
+            console.warn(`Audio file not found or play failed for ${src}:`, e);
+            // If audio fails to play, still auto-advance after a delay so the tour doesn't get stuck
+            if (autoAdvance) {
+                setTimeout(() => this.nextDialogue(), 3000); // Wait 3 seconds then advance
+            }
         });
-        document.querySelectorAll('.character-wrapper').forEach(el => el.classList.remove('has-video'));
+    },
+
+    /**
+     * Stop current playing audio
+     */
+    stopAudio() {
+        if (this.currentAudio) {
+            this.currentAudio.onended = null; // Prevent auto-advance from triggering on stop
+            this.currentAudio.pause();
+            this.currentAudio.currentTime = 0;
+            this.currentAudio = null;
+            this.currentAudioSrc = null;
+        }
     },
 
     /**
@@ -970,9 +1035,7 @@ const DialogueTour = {
         this.removeHighlight();
 
         // Stop audio if any
-        if (typeof TextToSpeech !== 'undefined') {
-            TextToSpeech.stop();
-        }
+        this.stopAudio();
 
         // Play completion sound
         if (this.currentDialogueIndex > 0 && typeof SoundEffects !== 'undefined') {
@@ -1108,48 +1171,164 @@ const DialogueTour = {
         menu.className = 'tour-menu-overlay';
         menu.innerHTML = `
             <div class="tour-menu">
-                <h3>🎓 جولات تعليمية</h3>
+                <h3>� جولات الشرح الصوتي</h3>
                 <p style="color: var(--text-secondary); margin-bottom: 20px;">اختر الشرح المناسب لك:</p>
                 
-                <button class="tour-menu-btn" onclick="DialogueTour.startTour('welcome', true); this.closest('.tour-menu-overlay').remove();">
-                    <span>👋</span>
-                    <div>
-                        <strong>جولة المبتدئين</strong>
-                        <small>ابدأ من الصفر</small>
-                    </div>
-                </button>
-                
-                <button class="tour-menu-btn" onclick="DialogueTour.startTour('dashboard', true); this.closest('.tour-menu-overlay').remove();">
-                    <span>🏠</span>
-                    <div>
-                        <strong>شرح لوحة التحكم</strong>
-                        <small>الدورات والتقدم</small>
-                    </div>
-                </button>
-                
-                <button class="tour-menu-btn" onclick="DialogueTour.startTour('tools', true); this.closest('.tour-menu-overlay').remove();">
-                    <span>🧰</span>
-                    <div>
-                        <strong>شرح الأدوات التعليمية</strong>
-                        <small>ألعاب وبطاقات وأكثر</small>
-                    </div>
-                </button>
-                
-                <button class="tour-menu-btn" onclick="DialogueTour.startTour('features', true); this.closest('.tour-menu-overlay').remove();">
-                    <span>✨</span>
-                    <div>
-                        <strong>شرح المزايا الخاصة</strong>
-                        <small>الوضع الليلي والأوسمة</small>
-                    </div>
-                </button>
-                
-                <button class="tour-menu-btn" onclick="DialogueTour.startTour('achievements', true); this.closest('.tour-menu-overlay').remove();">
-                    <span>🏆</span>
-                    <div>
-                        <strong>شرح الأوسمة</strong>
-                        <small>كيف تحصل عليها</small>
-                    </div>
-                </button>
+                <div class="tour-menu-scroll" style="max-height: 450px; overflow-y: auto; padding-right: 10px;">
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('welcome', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>👋</span>
+                        <div>
+                            <strong>جولة المبتدئين</strong>
+                            <small>ابدأ من الصفر</small>
+                        </div>
+                    </button>
+                    
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('dashboard', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>🏠</span>
+                        <div>
+                            <strong>شرح لوحة التحكم</strong>
+                            <small>الدورات والتقدم</small>
+                        </div>
+                    </button>
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('course', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>📚</span>
+                        <div>
+                            <strong>شرح صفحة الدورة</strong>
+                            <small>كيفية تصفح الدورات</small>
+                        </div>
+                    </button>
+
+
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('scenarios', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>🛠️</span>
+                        <div>
+                            <strong>التطبيق العملي</strong>
+                            <small>كيفية حل السيناريوهات</small>
+                        </div>
+                    </button>
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('quiz', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>📝</span>
+                        <div>
+                            <strong>الاختبار النهائي</strong>
+                            <small>شرح طريقة الاختبار</small>
+                        </div>
+                    </button>
+                    
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('tools', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>🧰</span>
+                        <div>
+                            <strong>شرح الأدوات التعليمية</strong>
+                            <small>ألعاب وبطاقات وأكثر</small>
+                        </div>
+                    </button>
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('dragdrop', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>🖱️</span>
+                        <div>
+                            <strong>لعبة السحب والإفلات</strong>
+                            <small>شرح طريقة اللعب</small>
+                        </div>
+                    </button>
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('spotHazard', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>🔍</span>
+                        <div>
+                            <strong>لعبة اكتشف الخطر</strong>
+                            <small>شرح طريقة اللعب</small>
+                        </div>
+                    </button>
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('matching', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>🃏</span>
+                        <div>
+                            <strong>لعبة المطابقة</strong>
+                            <small>شرح طريقة اللعب</small>
+                        </div>
+                    </button>
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('sorting', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>📦</span>
+                        <div>
+                            <strong>لعبة فرز السلامة</strong>
+                            <small>شرح طريقة اللعب</small>
+                        </div>
+                    </button>
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('emergencySimulator', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>🚑</span>
+                        <div>
+                            <strong>محاكي الطوارئ</strong>
+                            <small>كيف تتصرف في الخطر</small>
+                        </div>
+                    </button>
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('ppeGame', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>👷‍♀️</span>
+                        <div>
+                            <strong>لعبة معدات الوقاية</strong>
+                            <small>شرح طريقة اللعب</small>
+                        </div>
+                    </button>
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('escapeRoom', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>🔑</span>
+                        <div>
+                            <strong>غرفة الهروب</strong>
+                            <small>كيف تحل الألغاز</small>
+                        </div>
+                    </button>
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('spotDifference', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>🔍</span>
+                        <div>
+                            <strong>لعبة اكتشف الخطأ</strong>
+                            <small>شرح طريقة اللعب</small>
+                        </div>
+                    </button>
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('hazardMap', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>🗺️</span>
+                        <div>
+                            <strong>خريطة المخاطر</strong>
+                            <small>شرح طريقة اللعب</small>
+                        </div>
+                    </button>
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('safetyArcade', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>🚦</span>
+                        <div>
+                            <strong>تحدي إشارات المرور</strong>
+                            <small>شرح طريقة اللعب</small>
+                        </div>
+                    </button>
+                    
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('features', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>✨</span>
+                        <div>
+                            <strong>شرح المزايا الخاصة</strong>
+                            <small>الوضع الليلي وأخرى</small>
+                        </div>
+                    </button>
+                    
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('achievements', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>🏆</span>
+                        <div>
+                            <strong>شرح الأوسمة</strong>
+                            <small>كيف تحصل عليها</small>
+                        </div>
+                    </button>
+
+                    <button class="tour-menu-btn" onclick="DialogueTour.startTour('certificate', true); this.closest('.tour-menu-overlay').remove();">
+                        <span>📜</span>
+                        <div>
+                            <strong>شرح الشهادة</strong>
+                            <small>كيف تستخرجها</small>
+                        </div>
+                    </button>
+                </div>
                 
                 <button class="btn btn-secondary" onclick="this.closest('.tour-menu-overlay').remove();" style="margin-top: 20px;">
                     إغلاق

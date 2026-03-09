@@ -69,10 +69,10 @@ const MiniGames = {
         },
         arcade: {
             id: 'arcade',
-            name: 'أركيد السلامة',
-            nameEn: 'Safety Arcade',
-            icon: '🎮',
-            description: 'التقط أدوات السلامة وتجنب الأخطار'
+            name: 'تحدي إشارات المرور',
+            nameEn: 'Traffic Signs Challenge',
+            icon: '🚦',
+            description: 'اختبر معرفتك بإشارات المرور وقواعد الطريق'
         }
     },
 
@@ -302,6 +302,10 @@ const MiniGames = {
         // Pick a random scenario from the new set
         const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
 
+        if (typeof DialogueTour !== 'undefined') {
+            DialogueTour.startTour('spotHazard');
+        }
+
         document.getElementById('gameTitle').textContent = `🔍 ${this.games.spotHazard.name} - ${scenario.title}`;
 
         const content = document.getElementById('gameContent');
@@ -386,6 +390,10 @@ const MiniGames = {
         let flippedCards = [];
         let canFlip = true;
         let matches = 0;
+
+        if (typeof DialogueTour !== 'undefined') {
+            DialogueTour.startTour('matching');
+        }
 
         document.getElementById('gameTitle').textContent = `🃏 ${this.games.matching.name}`;
 
@@ -498,6 +506,10 @@ const MiniGames = {
             electric: { name: 'السلامة الكهربائية', emoji: '⚡', items: [] },
             general: { name: 'السلامة العامة', emoji: '🛡️', items: [] }
         };
+
+        if (typeof DialogueTour !== 'undefined') {
+            DialogueTour.startTour('sorting');
+        }
 
         document.getElementById('gameTitle').textContent = `📦 ${this.games.sorting.name}`;
 

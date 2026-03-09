@@ -738,7 +738,7 @@
                         {
                             "type": "interactive",
                             "game": "emergencySimulator",
-                            "label": "بدء محاكي اتصال الطوارئ"
+                            "label": "محاكي طوارئ كهربائية ⚡"
                         }
                     ]
                 },
@@ -774,6 +774,26 @@
                         {
                             "type": "text",
                             "value": "تذكر دائماً: السلامة أولاً! لا تحاول إصلاح الأعطال الكهربائية بنفسك."
+                        }
+                    ]
+                },
+                {
+                    "id": "elec-lesson-5",
+                    "title": "ملخص شامل",
+                    "videoUrl": "",
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "دليلك الشامل للسلامة الكهربائية"
+                        },
+                        {
+                            "type": "image",
+                            "value": "assets/images/electrical_safety_summary.png"
+                        },
+                        {
+                            "type": "file",
+                            "value": "assets/docs/electrical_safety_slides.pdf",
+                            "label": "تحميل شرائح الدرس (PDF)"
                         }
                     ]
                 }
@@ -1016,16 +1036,34 @@
                         {
                             "type": "image",
                             "value": "assets/images/road_crossing.png"
-                        },
-                        {
-                            "type": "interactive",
-                            "game": "safetyArcade",
-                            "label": "أركيد سلامة الطريق"
                         }
                     ]
                 },
                 {
                     "id": "road-lesson-2",
+                    "title": "كيف تمشي بأمان في الشارع",
+                    "videoUrl": "assets/videos/walking_safety.mp4",
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "دائماً امشِ على الرصيف ولا تنزل إلى الشارع المخصص للسيارات."
+                        },
+                        {
+                            "type": "text",
+                            "value": "إذا لم يكن هناك رصيف، امشِ على أقصى يسار الطريق حتى ترى السيارات القادمة باتجاهك."
+                        },
+                        {
+                            "type": "text",
+                            "value": "لا تلعب في الشارع، الحدائق والأماكن المخصصة هي المكان الآمن للعب."
+                        },
+                        {
+                            "type": "text",
+                            "value": "لا تنشغل بالهاتف أو اللعب أثناء المشي، انتبه دائماً للطريق والسيارات."
+                        }
+                    ]
+                },
+                {
+                    "id": "road-lesson-3",
                     "title": "إشارات المرور",
                     "videoUrl": "assets/videos/traffic_signals.mp4",
                     "content": [
@@ -1040,11 +1078,16 @@
                         {
                             "type": "image",
                             "value": "assets/images/traffic_light.png"
+                        },
+                        {
+                            "type": "interactive",
+                            "game": "safetyArcade",
+                            "label": "تحدي إشارات المرور 🚦"
                         }
                     ]
                 },
                 {
-                    "id": "road-lesson-3",
+                    "id": "road-lesson-4",
                     "title": "إرشادات عامة",
                     "videoUrl": "assets/videos/car_safety.mp4",
                     "content": [
@@ -1059,6 +1102,26 @@
                         {
                             "type": "text",
                             "value": "ارتدِ ملابس زاهية ليراك السائقون بوضوح."
+                        }
+                    ]
+                },
+                {
+                    "id": "road-lesson-5",
+                    "title": "ملخص شامل",
+                    "videoUrl": "",
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "دليلك الشامل للسلامة على الطريق"
+                        },
+                        {
+                            "type": "image",
+                            "value": "assets/images/road_safety_summary.png"
+                        },
+                        {
+                            "type": "file",
+                            "value": "assets/docs/road_safety_slides.pdf",
+                            "label": "تحميل شرائح الدرس (PDF)"
                         }
                     ]
                 }
@@ -1358,6 +1421,26 @@
                             "type": "interactive",
                             "game": "PPEGame",
                             "label": "تحدي معدات الوقاية الشخصية"
+                        }
+                    ]
+                },
+                {
+                    "id": "home-lesson-4",
+                    "title": "ملخص شامل",
+                    "videoUrl": "",
+                    "content": [
+                        {
+                            "type": "text",
+                            "value": "دليلك الشامل للسلامة المنزلية"
+                        },
+                        {
+                            "type": "image",
+                            "value": "assets/images/home_safety_summary.png"
+                        },
+                        {
+                            "type": "file",
+                            "value": "assets/docs/home_safety_slides.pdf",
+                            "label": "تحميل شرائح الدرس (PDF)"
                         }
                     ]
                 }

@@ -8,11 +8,13 @@ const EscapeRoom = {
     puzzlesSolved: 0,
     solvedIds: new Set(),
     totalPuzzles: 3,
+    completed: false,
 
     start() {
         this.isActive = true;
         this.puzzlesSolved = 0;
         this.solvedIds = new Set();
+        this.completed = false;
         this.renderUI();
 
         if (typeof DialogueTour !== 'undefined') {
@@ -26,8 +28,12 @@ const EscapeRoom = {
         overlay.className = 'game-overlay';
         overlay.innerHTML = `
             <div class="escape-container">
-                <div class="escape-header">
-                    <h2>🚪 غرفة الهروب: تحدي السلامة</h2>
+                <div class="escape-header" style="display: flex; align-items: center; gap: 15px;">
+                    <button class="btn btn-secondary btn-back" onclick="EscapeRoom.goBack()" style="font-size: 0.9rem;">
+                        <span class="btn-icon">→</span>
+                        <span>رجوع</span>
+                    </button>
+                    <h2 style="margin: 0; flex: 1;">🚪 غرفة الهروب: تحدي السلامة</h2>
                     <div class="puzzle-progress">الألغاز المحلولة: <span id="puzzleCount">0</span>/${this.totalPuzzles}</div>
                 </div>
                 <div class="escape-body" id="escapeBody">
@@ -121,17 +127,24 @@ const EscapeRoom = {
     },
 
     complete() {
+        this.completed = true;
         const body = document.getElementById('escapeBody');
         body.innerHTML = `
             <div class="completion-screen">
                 <div class="success-icon">🔓</div>
                 <h2>لقد خرجت بأمان!</h2>
                 <p>لقد أثبتت وعيك بمخاطر مكان العمل وكيفية التعامل معها.</p>
-                <button class="btn btn-primary" onclick="EscapeRoom.close()">إغلاق</button>
+                <button class="btn btn-primary" onclick="EscapeRoom.close()">العودة للدرس ✅</button>
             </div>
         `;
         if (typeof SoundEffects !== 'undefined') SoundEffects.success();
         if (typeof Confetti !== 'undefined') Confetti.celebrate();
+    },
+
+    goBack() {
+        if (confirm('هل تريد الخروج من غرفة الهروب؟ سيتم فقدان تقدمك.')) {
+            this.close();
+        }
     },
 
     close() {

@@ -1,26 +1,121 @@
 /**
- * Safety Arcade Game
- * Fast-paced reaction game for identifying safety items
+ * Traffic Signs Challenge
+ * Interactive game for learning road safety signs and rules
+ * Replaces the old Safety Arcade game
  */
 
 const SafetyArcade = {
     isActive: false,
+    currentQuestion: 0,
     score: 0,
-    gameLoop: null,
-    items: [],
-    basket: { x: 50, width: 20 },
+    totalQuestions: 0,
+    questions: [],
+    completed: false,
+
+    allQuestions: [
+        {
+            sign: '🔴',
+            signLabel: 'إشارة حمراء',
+            question: 'ماذا تعني الإشارة الحمراء للمشاة؟',
+            options: ['اعبر بسرعة', 'قف ولا تعبر', 'اركض', 'لا شيء'],
+            correct: 1,
+            explanation: 'الإشارة الحمراء تعني التوقف التام وعدم العبور حتى تتحول للأخضر.'
+        },
+        {
+            sign: '🟢',
+            signLabel: 'إشارة خضراء',
+            question: 'ماذا تعني الإشارة الخضراء للمشاة؟',
+            options: ['توقف', 'اعبر بحذر بعد التأكد', 'اركض بسرعة', 'ارجع للخلف'],
+            correct: 1,
+            explanation: 'الإشارة الخضراء تعني يمكنك العبور بحذر بعد التأكد من خلو الطريق.'
+        },
+        {
+            sign: '🟡',
+            signLabel: 'إشارة صفراء',
+            question: 'ماذا تعني الإشارة الصفراء للسيارات؟',
+            options: ['انطلق بسرعة', 'استعد وهدئ السرعة', 'توقف فوراً', 'أعطِ أولوية'],
+            correct: 1,
+            explanation: 'الإشارة الصفراء تعني الاستعداد وتهدئة السرعة لأن الإشارة ستتحول للأحمر.'
+        },
+        {
+            sign: '🚸',
+            signLabel: 'لافتة عبور أطفال',
+            question: 'ماذا تعني هذه اللافتة؟',
+            options: ['ملعب أطفال', 'منطقة عبور أطفال - انتبه!', 'حديقة عامة', 'مستشفى أطفال'],
+            correct: 1,
+            explanation: 'هذه اللافتة تحذر السائقين بوجود منطقة عبور أطفال ويجب الانتباه والتهدئة.'
+        },
+        {
+            sign: '⛔',
+            signLabel: 'ممنوع الدخول',
+            question: 'ماذا تعني علامة ممنوع الدخول؟',
+            options: ['ادخل بحذر', 'ممنوع الدخول من هذا الاتجاه', 'قف ثم ادخل', 'طريق سريع'],
+            correct: 1,
+            explanation: 'علامة ممنوع الدخول تعني أن هذا الطريق مغلق من هذا الاتجاه ولا يمكنك الدخول.'
+        },
+        {
+            sign: '🚶',
+            signLabel: 'ممر المشاة',
+            question: 'أين يجب أن تعبر الشارع؟',
+            options: ['من أي مكان', 'من ممر المشاة (الزيبرا)', 'من بين السيارات', 'من الجسر فقط'],
+            correct: 1,
+            explanation: 'ممر المشاة (الزيبرا) هو المكان الآمن والصحيح لعبور الشارع.'
+        },
+        {
+            sign: '🚗',
+            signLabel: 'ركوب السيارة',
+            question: 'أين يجب أن يجلس الأطفال في السيارة؟',
+            options: ['المقعد الأمامي', 'المقعد الخلفي مع ربط الحزام', 'في الصندوق', 'حجر السائق'],
+            correct: 1,
+            explanation: 'المقعد الخلفي مع ربط حزام الأمان هو المكان الأكثر أماناً للأطفال.'
+        },
+        {
+            sign: '👀',
+            signLabel: 'النظر قبل العبور',
+            question: 'ماذا تفعل قبل عبور الشارع؟',
+            options: ['أعبر مباشرة', 'أنظر يساراً ويميناً ثم يساراً', 'أغمض عيني وأجري', 'أنتظر سيارة تقف'],
+            correct: 1,
+            explanation: 'النظر يساراً ويميناً ثم يساراً مرة أخرى يضمن خلو الطريق قبل العبور.'
+        },
+        {
+            sign: '⚽',
+            signLabel: 'اللعب بالكرة',
+            question: 'أين المكان الآمن للعب بالكرة؟',
+            options: ['في الشارع', 'خلف السيارات', 'في الحديقة أو الملعب', 'على الرصيف'],
+            correct: 2,
+            explanation: 'الحديقة أو الملعب هي الأماكن الآمنة للعب. الشارع خطير جداً!'
+        },
+        {
+            sign: '🌙',
+            signLabel: 'المشي ليلاً',
+            question: 'لماذا يجب ارتداء ملابس فاتحة اللون ليلاً؟',
+            options: ['لأنها أجمل', 'كي يراك السائقون', 'للتدفئة', 'لا يهم اللون'],
+            correct: 1,
+            explanation: 'الملابس الفاتحة تجعل السائقين يرونك بوضوح في الظلام مما يحميك.'
+        }
+    ],
 
     start() {
         this.isActive = true;
+        this.currentQuestion = 0;
         this.score = 0;
-        this.items = [];
-        this.basket.x = 50;
+        this.completed = false;
+        // Shuffle and pick 6 questions
+        this.questions = this.shuffleArray([...this.allQuestions]).slice(0, 6);
+        this.totalQuestions = this.questions.length;
         this.renderUI();
-        this.startGameLoop();
 
         if (typeof DialogueTour !== 'undefined') {
             DialogueTour.startTour('safetyArcade');
         }
+    },
+
+    shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     },
 
     renderUI() {
@@ -28,144 +123,127 @@ const SafetyArcade = {
         overlay.id = 'arcadeOverlay';
         overlay.className = 'game-overlay';
         overlay.innerHTML = `
-            <div class="arcade-container">
-                <div class="arcade-header">
-                    <h2>🎮 أركيد السلامة</h2>
-                    <div class="arcade-score">النقاط: <span id="arcadeScore">0</span></div>
+            <div class="arcade-container" style="max-width: 600px; margin: auto; padding: 20px;">
+                <div class="arcade-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <button class="btn btn-secondary btn-back" onclick="SafetyArcade.goBack()" style="font-size: 0.9rem;">
+                        <span class="btn-icon">→</span>
+                        <span>رجوع</span>
+                    </button>
+                    <h2 style="margin: 0;">🚦 تحدي إشارات المرور</h2>
+                    <div class="arcade-score" style="font-size: 1rem;">
+                        <span id="arcadeProgress">${this.currentQuestion + 1}</span>/${this.totalQuestions}
+                    </div>
                 </div>
                 <div class="arcade-body" id="arcadeBody">
-                    <div class="arcade-canvas arcade-bg" id="arcadeCanvas">
-                        <div class="arcade-basket" id="arcadeBasket" style="left: 50%;">🛒</div>
-                    </div>
-                    <p class="instruction">استخدم الأسهم (يمين/يسار) للالتقاط أدوات السلامة وتجنب المخاطر!</p>
+                    <!-- Question will be rendered here -->
                 </div>
-                <div class="arcade-controls">
-                    <button class="control-btn" onclick="SafetyArcade.move(-5)">⬅️</button>
-                    <button class="control-btn" onclick="SafetyArcade.move(5)">➡️</button>
-                </div>
-                <button class="close-game" onclick="SafetyArcade.close()">✕</button>
+                <button class="close-game" onclick="SafetyArcade.goBack()">✕</button>
             </div>
         `;
         document.body.appendChild(overlay);
-
-        // Keyboard support
-        window.addEventListener('keydown', this.handleKey);
+        this.renderQuestion();
     },
 
-    handleKey(e) {
-        if (!SafetyArcade.isActive) return;
-        if (e.key === 'ArrowLeft') SafetyArcade.move(-10);
-        if (e.key === 'ArrowRight') SafetyArcade.move(10);
+    renderQuestion() {
+        const q = this.questions[this.currentQuestion];
+        const body = document.getElementById('arcadeBody');
+        if (!body) return;
+
+        body.innerHTML = `
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="font-size: 4rem; margin-bottom: 10px;">${q.sign}</div>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">${q.signLabel}</p>
+            </div>
+            <h3 style="text-align: center; margin-bottom: 20px; font-size: 1.1rem;">${q.question}</h3>
+            <div class="option-list" style="display: flex; flex-direction: column; gap: 10px;">
+                ${q.options.map((opt, i) => `
+                    <button class="option-btn" onclick="SafetyArcade.answer(${i})" 
+                            style="padding: 12px 16px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.1); background: var(--dark-card, #2a2a3e); color: var(--text-primary, #fff); cursor: pointer; font-size: 1rem; text-align: right; transition: all 0.3s;">
+                        ${opt}
+                    </button>
+                `).join('')}
+            </div>
+        `;
+
+        // Update progress
+        const prog = document.getElementById('arcadeProgress');
+        if (prog) prog.textContent = this.currentQuestion + 1;
     },
 
-    move(dir) {
-        this.basket.x = Math.max(0, Math.min(100 - this.basket.width, this.basket.x + dir));
-        const basketEl = document.getElementById('arcadeBasket');
-        if (basketEl) basketEl.style.left = this.basket.x + '%';
-    },
+    answer(index) {
+        const q = this.questions[this.currentQuestion];
+        const buttons = document.querySelectorAll('#arcadeBody .option-btn');
 
-    startGameLoop() {
-        let lastTime = Date.now();
-        this.gameLoop = setInterval(() => {
-            const now = Date.now();
-            if (now - lastTime > 1000) {
-                this.spawnItem();
-                lastTime = now;
-            }
-            this.updateItems();
-        }, 50);
-    },
+        // Disable all buttons
+        buttons.forEach(btn => btn.disabled = true);
 
-    spawnItem() {
-        const types = [
-            { emoji: '⛑️', score: 10, isHazard: false },
-            { emoji: '🧯', score: 10, isHazard: false },
-            { emoji: '🔥', score: -20, isHazard: true },
-            { emoji: '⚡', score: -20, isHazard: true }
-        ];
-        const type = types[Math.floor(Math.random() * types.length)];
-        const item = {
-            id: Date.now(),
-            x: Math.random() * 90,
-            y: 0,
-            emoji: type.emoji,
-            score: type.score,
-            isHazard: type.isHazard
-        };
-        this.items.push(item);
-
-        const itemEl = document.createElement('div');
-        itemEl.id = 'item-' + item.id;
-        itemEl.className = 'arcade-item';
-        itemEl.style.left = item.x + '%';
-        itemEl.style.top = '0%';
-        itemEl.textContent = item.emoji;
-        document.getElementById('arcadeCanvas').appendChild(itemEl);
-    },
-
-    updateItems() {
-        this.items.forEach((item, index) => {
-            item.y += 2;
-            const itemEl = document.getElementById('item-' + item.id);
-            if (itemEl) {
-                itemEl.style.top = item.y + '%';
-
-                // Collision check
-                if (item.y > 85 && item.y < 95) {
-                    const basketCenter = this.basket.x + (this.basket.width / 2);
-                    if (Math.abs(item.x - basketCenter) < 15) {
-                        this.catchItem(item, index);
-                    }
-                }
-
-                // Remove if off screen
-                if (item.y > 100) {
-                    itemEl.remove();
-                    this.items.splice(index, 1);
-                }
-            }
-        });
-
-        if (this.score >= 100) {
-            this.complete();
-        }
-    },
-
-    catchItem(item, index) {
-        this.score += item.score;
-        document.getElementById('arcadeScore').textContent = this.score;
-
-        if (item.isHazard) {
-            if (typeof SoundEffects !== 'undefined') SoundEffects.wrong();
-            document.getElementById('arcadeCanvas').classList.add('shake');
-            setTimeout(() => document.getElementById('arcadeCanvas').classList.remove('shake'), 500);
-        } else {
+        if (index === q.correct) {
+            this.score++;
+            buttons[index].style.background = '#2ecc71';
+            buttons[index].style.borderColor = '#27ae60';
             if (typeof SoundEffects !== 'undefined') SoundEffects.correct();
+        } else {
+            buttons[index].style.background = '#e74c3c';
+            buttons[index].style.borderColor = '#c0392b';
+            buttons[q.correct].style.background = '#2ecc71';
+            buttons[q.correct].style.borderColor = '#27ae60';
+            if (typeof SoundEffects !== 'undefined') SoundEffects.wrong();
         }
 
-        const itemEl = document.getElementById('item-' + item.id);
-        if (itemEl) itemEl.remove();
-        this.items.splice(index, 1);
+        // Show explanation
+        const body = document.getElementById('arcadeBody');
+        const explDiv = document.createElement('div');
+        explDiv.style.cssText = 'margin-top: 15px; padding: 12px; border-radius: 10px; background: rgba(46,204,113,0.15); border: 1px solid rgba(46,204,113,0.3); text-align: center;';
+        explDiv.innerHTML = `<p style="margin: 0; font-size: 0.95rem;">💡 ${q.explanation}</p>`;
+        body.appendChild(explDiv);
+
+        // Next question after delay
+        setTimeout(() => {
+            this.currentQuestion++;
+            if (this.currentQuestion < this.totalQuestions) {
+                this.renderQuestion();
+            } else {
+                this.complete();
+            }
+        }, 2500);
     },
 
     complete() {
-        clearInterval(this.gameLoop);
+        this.completed = true;
+        const percentage = Math.round((this.score / this.totalQuestions) * 100);
+        const passed = percentage >= 60;
+
         const body = document.getElementById('arcadeBody');
         body.innerHTML = `
-            <div class="completion-screen">
-                <div class="success-icon">🚀</div>
-                <h2>رقم قياسي جديد!</h2>
-                <p>لقد جمعت نقاطاً كافية وأظهرت سرعة بديهة في السلامة.</p>
-                <button class="btn btn-primary" onclick="SafetyArcade.close()">إغلاق</button>
+            <div class="completion-screen" style="text-align: center; padding: 20px;">
+                <div class="success-icon" style="font-size: 4rem; margin-bottom: 15px;">${passed ? '🏆' : '📚'}</div>
+                <h2>${passed ? 'أحسنت! أنت خبير مرور!' : 'حاول مرة أخرى!'}</h2>
+                <p style="font-size: 1.2rem; margin: 10px 0;">النتيجة: ${this.score}/${this.totalQuestions} (${percentage}%)</p>
+                <p style="color: var(--text-muted);">${passed ? 'لقد أظهرت معرفة ممتازة بإشارات المرور وقواعد السلامة في الشارع.' : 'تحتاج لمزيد من التدريب على إشارات المرور. حاول مرة أخرى!'}</p>
+                <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                    ${!passed ? '<button class="btn btn-secondary" onclick="SafetyArcade.retry()">🔄 إعادة المحاولة</button>' : ''}
+                    <button class="btn btn-primary" onclick="SafetyArcade.close()">${passed ? 'العودة للدرس ✅' : 'إغلاق'}</button>
+                </div>
             </div>
         `;
-        if (typeof SoundEffects !== 'undefined') SoundEffects.levelUp();
-        if (typeof Confetti !== 'undefined') Confetti.celebrate();
+        if (passed) {
+            if (typeof SoundEffects !== 'undefined') SoundEffects.levelUp();
+            if (typeof Confetti !== 'undefined') Confetti.celebrate();
+        }
+    },
+
+    retry() {
+        this.close();
+        this.start();
+    },
+
+    goBack() {
+        if (confirm('هل تريد الخروج من اللعبة؟ سيتم فقدان تقدمك.')) {
+            this.close();
+        }
     },
 
     close() {
-        clearInterval(this.gameLoop);
-        window.removeEventListener('keydown', this.handleKey);
         const overlay = document.getElementById('arcadeOverlay');
         if (overlay) overlay.remove();
         this.isActive = false;

@@ -7,10 +7,12 @@ const SpotDifference = {
     isActive: false,
     foundCount: 0,
     totalDifferences: 4,
+    completed: false,
 
     start() {
         this.isActive = true;
         this.foundCount = 0;
+        this.completed = false;
         this.renderUI();
 
         if (typeof DialogueTour !== 'undefined') {
@@ -24,8 +26,12 @@ const SpotDifference = {
         overlay.className = 'game-overlay';
         overlay.innerHTML = `
             <div class="spot-container">
-                <div class="spot-header">
-                    <h2>🔍 أوجد الاختلافات: بيئة عمل آمنة vs خطرة</h2>
+                <div class="spot-header" style="display: flex; align-items: center; gap: 15px;">
+                    <button class="btn btn-secondary btn-back" onclick="SpotDifference.goBack()" style="font-size: 0.9rem;">
+                        <span class="btn-icon">→</span>
+                        <span>رجوع</span>
+                    </button>
+                    <h2 style="margin: 0; flex: 1;">🔍 أوجد الاختلافات: بيئة عمل آمنة vs خطرة</h2>
                     <div class="spot-progress">المخاطر المكتشفة: <span id="spotCount">0</span>/${this.totalDifferences}</div>
                 </div>
                 <div class="spot-body" id="spotBody">
@@ -64,17 +70,24 @@ const SpotDifference = {
     },
 
     complete() {
+        this.completed = true;
         const body = document.getElementById('spotBody');
         body.innerHTML = `
             <div class="completion-screen">
                 <div class="success-icon">👀</div>
                 <h2>عين خبيرة!</h2>
                 <p>لقد اكتشفت جميع المخاطر التي تميز البيئة غير الآمنة.</p>
-                <button class="btn btn-primary" onclick="SpotDifference.close()">إغلاق</button>
+                <button class="btn btn-primary" onclick="SpotDifference.close()">العودة للدرس ✅</button>
             </div>
         `;
         if (typeof SoundEffects !== 'undefined') SoundEffects.success();
         if (typeof Confetti !== 'undefined') Confetti.celebrate();
+    },
+
+    goBack() {
+        if (confirm('هل تريد الخروج؟ سيتم فقدان تقدمك.')) {
+            this.close();
+        }
     },
 
     close() {

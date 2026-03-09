@@ -73,6 +73,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: var(--font-family);
     background: var(--dark-bg);
@@ -531,11 +535,16 @@ body {
 
 .btn:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-md), 0 0 15px rgba(102, 126, 234, 0.4);
 }
 
 .btn:active {
-    transform: translateY(0);
+    transform: translateY(0) scale(0.95);
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 4px;
 }
 
 .btn-primary {

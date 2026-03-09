@@ -104,8 +104,10 @@
 }
 
 .draggable-item.dragging {
-    opacity: 0.5;
+    opacity: 0.8;
     cursor: grabbing;
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(102, 126, 234, 0.5);
 }
 
 .draggable-item img {
