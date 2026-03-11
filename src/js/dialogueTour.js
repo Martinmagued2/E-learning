@@ -317,26 +317,30 @@ const DialogueTour = {
                 character: 'salem',
                 expression: 'explaining',
                 text: 'الآن وقت التطبيق العملي! 🛠️',
-                speech: 'الآن وقت التطبيق العملي'
+                speech: 'الآن وقت التطبيق العملي',
+                audio: 'assets/audio/dialogue/Fire-Practical_0.mp3'
             },
             {
                 character: 'nour',
                 expression: 'curious',
                 text: 'كيف نلعب هذه اللعبة يا سالم؟ 🤔',
-                speech: 'كيف نلعب هذه اللعبة يا سالم'
+                speech: 'كيف نلعب هذه اللعبة يا سالم',
+                audio: 'assets/audio/dialogue/Fire-Practical_1.mp3'
             },
             {
                 character: 'salem',
                 expression: 'happy',
                 text: 'اقرأ الموقف جيداً، ثم اختر التصرف الصحيح من الخيارات 👇',
                 speech: 'اقرأ الموقف جيداً، ثم اختر التصرف الصحيح من الخيارات',
-                highlight: '.scenario-options'
+                highlight: '.scenario-options',
+                audio: 'assets/audio/dialogue/Fire-Practical_2.mp3'
             },
             {
                 character: 'nour',
                 expression: 'excited',
                 text: 'سأركز جيداً لأحصل على النتيجة الكاملة! ⭐',
-                speech: 'سأركز جيداً لأحصل على النتيجة الكاملة'
+                speech: 'سأركز جيداً لأحصل على النتيجة الكاملة',
+                audio: 'assets/audio/dialogue/Fire-Practical_3.mp3'
             }
         ],
 
@@ -648,26 +652,30 @@ const DialogueTour = {
                 expression: 'happy',
                 text: 'مبروك! لقد حصلت على شهادتك. هذا دليل على تفوقك في السلامة.',
                 speech: 'مبروك! لقد حصلت على شهادتك. هذا دليل على تفوقك في السلامة.',
-                highlight: '.certificate-paper'
+                highlight: '.certificate-paper',
+                audio: 'assets/audio/dialogue/Fire-Certificate_0.mp3'
             },
             {
                 character: 'nour',
                 expression: 'excited',
                 text: 'يا لها من شهادة جميلة! هل يمكنني الاحتفاظ بها؟ 📜',
-                speech: 'يا لها من شهادة جميلة! هل يمكنني الاحتفاظ بها؟'
+                speech: 'يا لها من شهادة جميلة! هل يمكنني الاحتفاظ بها؟',
+                audio: 'assets/audio/dialogue/Fire-Certificate_1.mp3'
             },
             {
                 character: 'salem',
                 expression: 'explaining',
                 text: 'بالتأكيد! يمكنك الضغط على زر التحميل لحفظها كملف PDF.',
                 speech: 'بالتأكيد! يمكنك الضغط على زر التحميل لحفظها كملف PDF.',
-                highlight: '#printCertificate'
+                highlight: '#printCertificate',
+                audio: 'assets/audio/dialogue/Fire-Certificate_2.mp3'
             },
             {
                 character: 'nour',
                 expression: 'happy',
                 text: 'رائع! سأعرضها على أصدقائي وعائلتي! ✨',
-                speech: 'رائع! سأعرضها على أصدقائي وعائلتي!'
+                speech: 'رائع! سأعرضها على أصدقائي وعائلتي!',
+                audio: 'assets/audio/dialogue/Fire-Certificate_3.mp3'
             }
         ]
     },
