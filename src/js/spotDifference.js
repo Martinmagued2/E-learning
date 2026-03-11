@@ -16,7 +16,12 @@ const SpotDifference = {
         this.renderUI();
 
         if (typeof DialogueTour !== 'undefined') {
-            DialogueTour.startTour('spotDifference');
+            const isFireCourse = typeof App !== 'undefined' && App.currentCourse && App.currentCourse.id === 'fire-safety';
+            if (isFireCourse) {
+                setTimeout(() => DialogueTour.startTour('danger', true), 300);
+            } else {
+                DialogueTour.startTour('spotDifference');
+            }
         }
     },
 

@@ -123,6 +123,37 @@ const DialogueTour = {
             }
         ],
 
+        danger: [
+            {
+                character: 'salem',
+                expression: 'explaining',
+                text: 'انظري جيداً لهاتين الصورتين. إحداهما بها أخطاء تهدد السلامة.',
+                speech: 'انظري جيداً لهاتين الصورتين. إحداهما بها أخطاء تهدد السلامة.',
+                audio: 'assets/audio/dialogue/Dangers_0.mp3'
+            },
+            {
+                character: 'nour',
+                expression: 'curious',
+                text: 'هل يجب أن أجد جميع المخاطر المخفية؟ 🔍',
+                speech: 'هل يجب أن أجد جميع المخاطر المخفية؟',
+                audio: 'assets/audio/dialogue/Dangers_1.mp3'
+            },
+            {
+                character: 'salem',
+                expression: 'happy',
+                text: 'نعم، اضغطي على أماكن الخطر في الصورة التي على اليسار.',
+                speech: 'نعم، اضغطي على أماكن الخطر في الصورة التي على اليسار.',
+                audio: 'assets/audio/dialogue/Dangers_2.mp3'
+            },
+            {
+                character: 'nour',
+                expression: 'excited',
+                text: 'عيني قوية جداً! سأجد كل ما يهدد السلامة في ثوانٍ! 👀',
+                speech: 'عيني قوية جداً! سأجد كل ما يهدد السلامة في ثوانٍ!',
+                audio: 'assets/audio/dialogue/Dangers_3.mp3'
+            }
+        ],
+
         course: [
             {
                 character: 'salem',
@@ -423,25 +454,29 @@ const DialogueTour = {
                 character: 'salem',
                 expression: 'explaining',
                 text: 'تخيلي أنك في غرفة ويجب عليك الخروج بأمان باتباع تعليمات السلامة.',
-                speech: 'تخيلي أنك في غرفة ويجب عليك الخروج بأمان باتباع تعليمات السلامة.'
+                speech: 'تخيلي أنك في غرفة ويجب عليك الخروج بأمان باتباع تعليمات السلامة.',
+                audio: 'assets/audio/dialogue/Escape_0.mp3'
             },
             {
                 character: 'nour',
                 expression: 'curious',
                 text: 'هل يجب علي البحث عن مفاتيح؟ 🔑',
-                speech: 'هل يجب علي البحث عن مفاتيح؟'
+                speech: 'هل يجب علي البحث عن مفاتيح؟',
+                audio: 'assets/audio/dialogue/Escape_1.mp3'
             },
             {
                 character: 'salem',
                 expression: 'happy',
                 text: 'المفاتيح هي معرفتك! ابحثي عن المخاطر وحلي الألغاز لتفتحي الباب.',
-                speech: 'المفاتيح هي معرفتك! ابحثي عن المخاطر وحلي الألغاز لتفتحي الباب.'
+                speech: 'المفاتيح هي معرفتك! ابحثي عن المخاطر وحلي الألغاز لتفتحي الباب.',
+                audio: 'assets/audio/dialogue/Escape_2.mp3'
             },
             {
                 character: 'nour',
                 expression: 'excited',
                 text: 'تحدي رائع! سأستخدم ذكائي ومعلوماتي لأخرج بسلام! ✨',
-                speech: 'تحدي رائع! سأستخدم ذكائي ومعلوماتي لأخرج بسلام!'
+                speech: 'تحدي رائع! سأستخدم ذكائي ومعلوماتي لأخرج بسلام!',
+                audio: 'assets/audio/dialogue/Escape_3.mp3'
             }
         ],
 
