@@ -35,36 +35,38 @@ const DragDropActivity = {
                 <h2 class="scenario-title">${activity.title}</h2>
                 <p class="scenario-description">${activity.description}</p>
 
-                <!-- Scene Container -->
-                <div class="dragdrop-scene" id="dragdropScene">
-                    <img src="${activity.sceneImage}" alt="المشهد" class="scene-image">
-                    
-                    <!-- Drop Targets (invisible zones on the image) -->
-                    ${activity.targets.map((target, index) => `
-                        <div class="drop-target" 
-                             data-target-index="${index}"
-                             data-accepts="${target.accepts}"
-                             style="top: ${target.top}%; left: ${target.left}%; width: ${target.width}%; height: ${target.height}%;">
-                            ${target.label ? `<span class="target-label">${target.label}</span>` : ''}
-                        </div>
-                    `).join('')}
-                </div>
-
-                <!-- Draggable Items -->
-                <div class="dragdrop-items">
-                    <p class="items-instruction">اسحب الأداة المناسبة إلى المشهد:</p>
-                    <div class="items-container">
-                        ${activity.items.map((item, index) => `
-                            <div class="draggable-item" 
-                                 draggable="true"
-                                 data-item-id="${item.id}"
-                                 data-item-index="${index}">
-                                ${item.icon.includes('.') || item.icon.includes('/')
-                ? `<img src="${item.icon}" alt="${item.name}">`
-                : `<span style="font-size: 3rem;">${item.icon}</span>`}
-                                <span>${item.name}</span>
+                <div class="dragdrop-layout">
+                    <!-- Scene Container -->
+                    <div class="dragdrop-scene" id="dragdropScene">
+                        <img src="${activity.sceneImage}" alt="المشهد" class="scene-image">
+                        
+                        <!-- Drop Targets (invisible zones on the image) -->
+                        ${activity.targets.map((target, index) => `
+                            <div class="drop-target" 
+                                 data-target-index="${index}"
+                                 data-accepts="${target.accepts}"
+                                 style="top: ${target.top}%; left: ${target.left}%; width: ${target.width}%; height: ${target.height}%;">
+                                ${target.label ? `<span class="target-label">${target.label}</span>` : ''}
                             </div>
                         `).join('')}
+                    </div>
+
+                    <!-- Draggable Items -->
+                    <div class="dragdrop-items">
+                        <p class="items-instruction">اسحب الأداة المناسبة إلى المشهد:</p>
+                        <div class="items-container">
+                            ${activity.items.map((item, index) => `
+                                <div class="draggable-item" 
+                                     draggable="true"
+                                     data-item-id="${item.id}"
+                                     data-item-index="${index}">
+                                    ${item.icon.includes('.') || item.icon.includes('/')
+                ? `<img src="${item.icon}" alt="${item.name}">`
+                : `<span style="font-size: 2.5rem;">${item.icon}</span>`}
+                                    <span>${item.name}</span>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
                 </div>
 

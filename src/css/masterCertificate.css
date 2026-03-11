@@ -1,0 +1,59 @@
+/* Master Certificate Special Styling */
+
+.certificate-container.master-active {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.master-active .certificate-paper {
+    background: #fffdf0;
+    border: 15px solid transparent;
+    border-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H100V100H0V0Z' fill='%23FFD700'/%3E%3Cpath d='M10 10H90V90H10V10Z' fill='%23FFFDF0'/%3E%3Cpath d='M5 5L15 15M85 85L95 95M95 5L85 15M5 95L15 85' stroke='%23B8860B' stroke-width='2'/%3E%3C/svg%3E") 30 stretch;
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+    transform: scale(1.05);
+    transition: transform 0.5s;
+}
+
+.master-active .certificate-title {
+    color: #b8860b;
+    font-size: 3.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.master-active .certificate-student-name {
+    color: #1a1a2e;
+    border-bottom: 3px double #b8860b;
+    display: inline-block;
+    padding: 0 50px;
+    font-family: 'Amiri', serif;
+}
+
+.master-active .certificate-logo {
+    color: #ffd700;
+    font-size: 5rem;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+    margin-bottom: 30px;
+}
+
+.master-active .certificate-paper::after {
+    content: '🏆';
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    font-size: 6rem;
+    opacity: 0.1;
+    transform: rotate(-20deg);
+}
+
+/* Master Badge for Dashboard */
+.master-cert {
+    animation: goldPulse 2s infinite;
+}
+
+@keyframes goldPulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+    70% { box-shadow: 0 0 0 20px rgba(255, 215, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+}

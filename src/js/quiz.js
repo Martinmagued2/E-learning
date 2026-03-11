@@ -72,7 +72,7 @@ const Quiz = {
         // Initialize timed quiz if enabled
         if (quiz.timedMode && typeof TimedQuiz !== 'undefined') {
             TimedQuiz.init({
-                timePerQuestion: quiz.timePerQuestion || 15,
+                timePerQuestion: quiz.timePerQuestion || 45,
                 onTimeUp: () => {
                     // Auto-select wrong answer when time runs out
                     const question = this.currentQuiz.questions[this.currentQuestionIndex];

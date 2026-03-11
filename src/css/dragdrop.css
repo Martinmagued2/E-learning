@@ -6,11 +6,19 @@
     margin: 0 auto;
 }
 
+/* Side-by-side layout for scene + items */
+.dragdrop-layout {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+    margin-top: var(--spacing-md);
+}
+
 .dragdrop-scene {
     position: relative;
-    width: 100%;
-    max-width: 800px;
-    margin: var(--spacing-xl) auto;
+    flex: 1 1 60%;
+    min-width: 0;
     border-radius: var(--radius-xl);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
@@ -61,30 +69,29 @@
 }
 
 .dragdrop-items {
-    margin-top: var(--spacing-xl);
+    flex: 0 0 200px;
 }
 
 .items-instruction {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
     font-weight: 600;
     text-align: center;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
     color: var(--primary-blue);
 }
 
 .items-container {
     display: flex;
-    gap: var(--spacing-md);
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: var(--spacing-lg);
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
     background: var(--dark-hover);
     border-radius: var(--radius-xl);
 }
 
 .draggable-item {
-    width: 120px;
-    padding: var(--spacing-md);
+    width: 100%;
+    padding: var(--spacing-sm);
     background: var(--dark-card);
     border-radius: var(--radius-lg);
     border: 2px solid transparent;
@@ -104,13 +111,15 @@
 }
 
 .draggable-item.dragging {
-    opacity: 0.5;
+    opacity: 0.8;
     cursor: grabbing;
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(102, 126, 234, 0.5);
 }
 
 .draggable-item img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
 }
 
