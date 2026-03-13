@@ -377,25 +377,29 @@ const DialogueTour = {
                 character: 'salem',
                 expression: 'explaining',
                 text: 'هذه اللعبة مختلفة! سنستخدم السحب والإفلات 👋',
-                speech: 'هذه اللعبة مختلفة! سنستخدم السحب والإفلات'
+                speech: 'هذه اللعبة مختلفة! سنستخدم السحب والإفلات',
+                audio: 'assets/audio/dialogue/Drag&Drop_0.mp3'
             },
             {
                 character: 'nour',
                 expression: 'curious',
                 text: 'ماذا علينا أن نفعل؟ 🤔',
-                speech: 'ماذا علينا أن نفعل'
+                speech: 'ماذا علينا أن نفعل',
+                audio: 'assets/audio/dialogue/Drag&Drop_1.mp3'
             },
             {
                 character: 'salem',
                 expression: 'happy',
                 text: 'اسحبي الأداة المناسبة وضعيها على المكان الصحيح في الصورة! 🖱️',
-                speech: 'اسحبي الأداة المناسبة وضعيها على المكان الصحيح في الصورة'
+                speech: 'اسحبي الأداة المناسبة وضعيها على المكان الصحيح في الصورة',
+                audio: 'assets/audio/dialogue/Drag&Drop_2.mp3'
             },
             {
                 character: 'nour',
                 expression: 'excited',
                 text: 'فهمت! سأختار الأداة الصحيحة لإطفاء الحريق! 🔥❌',
-                speech: 'فهمت! سأختار الأداة الصحيحة لإطفاء الحريق'
+                speech: 'فهمت! سأختار الأداة الصحيحة لإطفاء الحريق',
+                audio: 'assets/audio/dialogue/Drag&Drop_3.mp3'
             }
         ],
 
@@ -404,25 +408,29 @@ const DialogueTour = {
                 character: 'salem',
                 expression: 'explaining',
                 text: 'في حالات الطوارئ الكهربائية، كل ثانية تفرق! هذا المحاكي سيساعدك على التدرب.',
-                speech: 'في حالات الطوارئ الكهربائية، كل ثانية تفرق! هذا المحاكي سيساعدك على التدرب.'
+                speech: 'في حالات الطوارئ الكهربائية، كل ثانية تفرق! هذا المحاكي سيساعدك على التدرب.',
+                audio: 'assets/audio/dialogue/Ambulance-call_0.mp3'
             },
             {
                 character: 'nour',
                 expression: 'curious',
                 text: 'هل يجب علي الاتصال برقم معين؟ 🤔',
-                speech: 'هل يجب علي الاتصال برقم معين؟'
+                speech: 'هل يجب علي الاتصال برقم معين؟',
+                audio: 'assets/audio/dialogue/Ambulance-call_1.mp3'
             },
             {
                 character: 'salem',
                 expression: 'happy',
                 text: 'نعم، اتصلي برقم الإسعاف الصحيح وتعلمي كيف تتصرفي مع الصدمة الكهربائية!',
-                speech: 'نعم، اتصلي برقم الإسعاف الصحيح وتعلمي كيف تتصرفي مع الصدمة الكهربائية!'
+                speech: 'نعم، اتصلي برقم الإسعاف الصحيح وتعلمي كيف تتصرفي مع الصدمة الكهربائية!',
+                audio: 'assets/audio/dialogue/Ambulance-call_2.mp3'
             },
             {
                 character: 'nour',
                 expression: 'excited',
                 text: 'سأكون سريعة ومنظمة! أهم شيء فصل الكهرباء أولاً! 💪',
-                speech: 'سأكون سريعة ومنظمة! أهم شيء فصل الكهرباء أولاً!'
+                speech: 'سأكون سريعة ومنظمة! أهم شيء فصل الكهرباء أولاً!',
+                audio: 'assets/audio/dialogue/Ambulance-call_3.mp3'
             }
         ],
 
@@ -431,25 +439,29 @@ const DialogueTour = {
                 character: 'salem',
                 expression: 'explaining',
                 text: 'ارتداء ملابس الوقاية الشخصية هو أول خطوة للحفاظ على سلامتك.',
-                speech: 'ارتداء ملابس الوقاية الشخصية هو أول خطوة للحفاظ على سلامتك.'
+                speech: 'ارتداء ملابس الوقاية الشخصية هو أول خطوة للحفاظ على سلامتك.',
+                audio: 'assets/audio/dialogue/Safety_0.mp3'
             },
             {
                 character: 'nour',
                 expression: 'curious',
                 text: 'هناك الكثير من الأدوات! ماذا أختار لموقع البناء؟ 👷‍♀️',
-                speech: 'هناك الكثير من الأدوات! ماذا أختار لموقع البناء؟'
+                speech: 'هناك الكثير من الأدوات! ماذا أختار لموقع البناء؟',
+                audio: 'assets/audio/dialogue/Safety_1.mp3'
             },
             {
                 character: 'salem',
                 expression: 'happy',
                 text: 'اسحبي الخوذة والسترة والقفازات المناسبة للشخصية.',
-                speech: 'اسحبي الخوذة والسترة والقفازات المناسبة للشخصية.'
+                speech: 'اسحبي الخوذة والسترة والقفازات المناسبة للشخصية.',
+                audio: 'assets/audio/dialogue/Safety_2.mp3'
             },
             {
                 character: 'nour',
                 expression: 'excited',
                 text: 'فهمت! السلامة تبدأ بقرار صحيح في اختيار المعدات!',
-                speech: 'فهمت! السلامة تبدأ بقرار صحيح في اختيار المعدات!'
+                speech: 'فهمت! السلامة تبدأ بقرار صحيح في اختيار المعدات!',
+                audio: 'assets/audio/dialogue/Safety_3.mp3'
             }
         ],
 
@@ -516,25 +528,29 @@ const DialogueTour = {
                 character: 'salem',
                 expression: 'explaining',
                 text: 'هذه خريطة للموقع. هناك عدة نقاط تحتاج لفحصك.',
-                speech: 'هذه خريطة للموقع. هناك عدة نقاط تحتاج لفحصك.'
+                speech: 'هذه خريطة للموقع. هناك عدة نقاط تحتاج لفحصك.',
+                audio: 'assets/audio/dialogue/Map_0.mp3'
             },
             {
                 character: 'nour',
                 expression: 'curious',
                 text: 'كيف أتحرك في الخريطة؟ 🗺️',
-                speech: 'كيف أتحرك في الخريطة؟'
+                speech: 'كيف أتحرك في الخريطة؟',
+                audio: 'assets/audio/dialogue/Map_1.mp3'
             },
             {
                 character: 'salem',
                 expression: 'happy',
                 text: 'اضغطي على الأيقونات الحمراء، واقرئي الموقف، ثم حلي المشكلة.',
-                speech: 'اضغطي على الأيقونات الحمراء، واقرئي الموقف، ثم حلي المشكلة.'
+                speech: 'اضغطي على الأيقونات الحمراء، واقرئي الموقف، ثم حلي المشكلة.',
+                audio: 'assets/audio/dialogue/Map_2.mp3'
             },
             {
                 character: 'nour',
                 expression: 'excited',
                 text: 'سأجعل هذا الموقع مكاناً آمناً للجميع! 🛡️',
-                speech: 'سأجعل هذا الموقع مكاناً آمناً للجميع!'
+                speech: 'سأجعل هذا الموقع مكاناً آمناً للجميع!',
+                audio: 'assets/audio/dialogue/Map_3.mp3'
             }
         ],
 
@@ -543,25 +559,29 @@ const DialogueTour = {
                 character: 'salem',
                 expression: 'explaining',
                 text: 'مرحباً بك في تحدي إشارات المرور! هيا نختبر معرفتك بقواعد الطريق.',
-                speech: 'مرحباً بك في تحدي إشارات المرور! هيا نختبر معرفتك بقواعد الطريق.'
+                speech: 'مرحباً بك في تحدي إشارات المرور! هيا نختبر معرفتك بقواعد الطريق.',
+                audio: 'assets/audio/dialogue/Traffic-Light_0.mp3'
             },
             {
                 character: 'nour',
                 expression: 'curious',
                 text: 'ما هي قواعد اللعبة؟ 🚦',
-                speech: 'ما هي قواعد اللعبة؟'
+                speech: 'ما هي قواعد اللعبة؟',
+                audio: 'assets/audio/dialogue/Traffic-Light_1.mp3'
             },
             {
                 character: 'salem',
                 expression: 'happy',
                 text: 'ستظهر لك إشارات مرور وأسئلة عن السلامة في الشارع. اختاري الإجابة الصحيحة!',
-                speech: 'ستظهر لك إشارات مرور وأسئلة عن السلامة في الشارع. اختاري الإجابة الصحيحة!'
+                speech: 'ستظهر لك إشارات مرور وأسئلة عن السلامة في الشارع. اختاري الإجابة الصحيحة!',
+                audio: 'assets/audio/dialogue/Traffic-Light_2.mp3'
             },
             {
                 character: 'nour',
                 expression: 'excited',
                 text: 'هيا بنا! سأثبت أنني خبيرة مرور! 🚀',
-                speech: 'هيا بنا! سأثبت أنني خبيرة مرور!'
+                speech: 'هيا بنا! سأثبت أنني خبيرة مرور!',
+                audio: 'assets/audio/dialogue/Traffic-Light_3.mp3'
             }
         ],
 
