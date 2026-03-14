@@ -48,10 +48,10 @@ const SpotDifference = {
                         <div class="image-wrapper dangerous" id="diffImage">
                             <h3>خطر ❌</h3>
                             <img src="assets/images/spot_hazard.png">
-                            <div class="diff-zone" style="top: 35%; left: 22%;" onclick="SpotDifference.found(0, this)"></div>
-                            <div class="diff-zone" style="top: 78%; left: 38%; width: 25%;" onclick="SpotDifference.found(1, this)"></div>
-                            <div class="diff-zone" style="top: 25%; left: 67%;" onclick="SpotDifference.found(2, this)"></div>
-                            <div class="diff-zone" style="top: 58%; left: 53%;" onclick="SpotDifference.found(3, this)"></div>
+                            <div class="diff-zone" style="top: 46%; left: 26%; width: 14%; height: 18%;" title="صندوق يعيق مسار الخروج" onclick="SpotDifference.found(0, this)"></div>
+                            <div class="diff-zone" style="top: 37%; left: 56%; width: 10%; height: 12%;" title="كوب مسكوب على المكتب" onclick="SpotDifference.found(1, this)"></div>
+                            <div class="diff-zone" style="top: 55%; left: 61%; width: 14%; height: 18%;" title="درج مفتوح" onclick="SpotDifference.found(2, this)"></div>
+                            <div class="diff-zone" style="top: 48%; left: 67%; width: 10%; height: 10%;" title="ورقة بجانب الماوس" onclick="SpotDifference.found(3, this)"></div>
                         </div>
                     </div>
                     <p class="instruction">اضغط على المخاطر الموجودة في الصورة اليمنى والتي تجعلها مختلفة عن البيئة الآمنة.</p>
