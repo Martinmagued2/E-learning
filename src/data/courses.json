@@ -1156,7 +1156,7 @@
                     "title": "أمان الدراجة",
                     "description": "أحمد عايز يركب العجلة. إيه أهم حاجة يلبسها للأمان؟",
                     "courseId": "road-safety",
-                    "sceneImage": "assets/images/road_safety_interactive.png",
+                    "sceneImage": "assets/images/bicyle_no_helmet.jpg",
                     "items": [
                         {
                             "id": "helmet",
@@ -1177,7 +1177,7 @@
                     "targets": [
                         {
                             "accepts": "helmet",
-                            "top": 40,
+                            "top": 20,
                             "left": 40,
                             "width": 20,
                             "height": 30,

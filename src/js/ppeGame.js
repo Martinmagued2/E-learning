@@ -96,6 +96,7 @@ const PPEGame = {
             const clone = item.cloneNode(true);
             clone.draggable = false;
             clone.style.cursor = 'pointer';
+            clone.setAttribute('data-type', type);
             clone.onclick = () => this.removeItem(type, clone);
             applied.appendChild(clone);
             item.style.opacity = '0.4';
