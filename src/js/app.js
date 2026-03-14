@@ -217,15 +217,17 @@ const App = {
      * Show specific screen
      */
     showScreen(screenId) {
-        // Hide all screens
-        document.querySelectorAll('.screen').forEach(screen => {
-            screen.classList.remove('active');
-        });
-
         // Show target screen
         const targetScreen = document.getElementById(screenId);
         if (targetScreen) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+
             targetScreen.classList.add('active');
+            // Scroll the screen container to top
+            targetScreen.scrollTop = 0;
         }
 
         AudioNarration.stop();
@@ -478,6 +480,12 @@ const App = {
      */
     loadLesson(lessonIndex) {
         if (!this.currentCourse) return;
+
+        // Scroll course screen to top
+        const courseScreen = document.getElementById('courseScreen');
+        if (courseScreen) {
+            courseScreen.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         const lesson = this.currentCourse.lessons[lessonIndex];
         if (!lesson) return;

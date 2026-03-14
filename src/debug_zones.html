@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Zone Calibration Tool</title>
+<style>
+  body { margin: 0; background: #1e1e2e; display: flex; flex-direction: column; align-items: center; padding: 20px; font-family: sans-serif; color: white; }
+  h2 { color: #ffa502; }
+  #container { position: relative; display: inline-block; max-width: 600px; }
+  #container img { width: 100%; display: block; border: 2px solid #444; }
+  .zone { position: absolute; border: 3px solid; cursor: pointer; box-sizing: border-box; }
+  #coords { background: #2f3542; padding: 15px; margin-top: 10px; border-radius: 10px; width: 600px; font-size: 14px; line-height: 1.8; }
+  #click-pos { color: #2ed573; font-weight: bold; }
+  p { margin: 4px 0; }
+</style>
+</head>
+<body>
+<h2>🔍 Hazard Zone Calibration</h2>
+<p>Click anywhere on the image to see its % coordinates. Then compare with the colored boxes.</p>
+<div id="container">
+  <img id="img" src="assets/images/spot_hazard.png" />
+  <!-- Zone 0: Box at door -->
+  <div class="zone" id="z0" style="top:54%;left:10%;width:20%;height:20%;border-color:red;border-style:dashed;"></div>
+  <!-- Zone 1: Spilled cup -->
+  <div class="zone" id="z1" style="top:28%;left:55%;width:18%;height:16%;border-color:blue;border-style:dashed;"></div>
+  <!-- Zone 2: Open drawer -->
+  <div class="zone" id="z2" style="top:47%;left:67%;width:16%;height:16%;border-color:lime;border-style:dashed;"></div>
+  <!-- Zone 3: Paper near mouse -->
+  <div class="zone" id="z3" style="top:36%;left:67%;width:16%;height:14%;border-color:orange;border-style:dashed;"></div>
+</div>
+<div id="coords">
+  <p>Click on the image to get coordinates:</p>
+  <p id="click-pos">—</p>
+  <hr>
+  <p><span style="color:red">■ RED</span> = Zone 0: Box at door (صندوق أمام الباب)</p>
+  <p><span style="color:dodgerblue">■ BLUE</span> = Zone 1: Spilled cup (كوب مسكوب)</p>
+  <p><span style="color:lime">■ GREEN</span> = Zone 2: Open drawer (درج مفتوح)</p>
+  <p><span style="color:orange">■ ORANGE</span> = Zone 3: Paper by mouse (ورقة بجانب الماوس)</p>
+</div>
+<script>
+  document.getElementById('img').addEventListener('click', function(e) {
+    let rect = this.getBoundingClientRect();
+    let x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
+    let y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+    document.getElementById('click-pos').textContent = `You clicked: top: ${y}%, left: ${x}%`;
+  });
+</script>
+</body>
+</html>

@@ -93,13 +93,11 @@ const SpotDifference = {
                         </div>
                         <div class="image-wrapper dangerous" id="diffImage">
                             <h3>خطر ❌</h3>
-                            <img src="assets/images/spot_hazard.png" onclick="SpotDifference.wrongClick()">
-                            <!-- Fire Exit Blocked (boxes in front of door) -->
-                            <div class="diff-zone" data-index="0" style="top: 55%; left: 30%; width: 10%; height: 10%;" onclick="SpotDifference.found(0, this)"></div>
-                            <!-- Electrical hazard & messy desk area -->
-                            <div class="diff-zone" data-index="1" style="top: 48%; left: 60%; width: 10%; height: 10%;" onclick="SpotDifference.found(1, this)"></div>
-                            <!-- Papers/clutter & disorganized storage (combined) -->
-                            <div class="diff-zone" data-index="2" style="top: 55%; left: 70%; width: 10%; height: 10%;" onclick="SpotDifference.found(2, this)"></div>
+                            <img src="assets/images/spot_hazard.png">
+                            <div class="diff-zone" style="top: 46%; left: 26%; width: 14%; height: 18%;" title="صندوق يعيق مسار الخروج" onclick="SpotDifference.found(0, this)"></div>
+                            <div class="diff-zone" style="top: 37%; left: 56%; width: 10%; height: 12%;" title="كوب مسكوب على المكتب" onclick="SpotDifference.found(1, this)"></div>
+                            <div class="diff-zone" style="top: 55%; left: 61%; width: 14%; height: 18%;" title="درج مفتوح" onclick="SpotDifference.found(2, this)"></div>
+                            <div class="diff-zone" style="top: 48%; left: 67%; width: 10%; height: 10%;" title="ورقة بجانب الماوس" onclick="SpotDifference.found(3, this)"></div>
                         </div>
                     </div>
                     <p class="instruction">اضغط على المخاطر في الصورة اليمنى (خطر ❌) فقط. النقر الخاطئ سيخصم منك نقاط!</p>
