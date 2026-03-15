@@ -47,6 +47,27 @@
     transform: rotate(-20deg);
 }
 
+/* Master Certificate: hide course name, date, score, and extra text */
+.master-active .certificate-course-name,
+.master-active .certificate-date,
+.master-active .certificate-score,
+.master-active .certificate-completion-text,
+.master-active .certificate-body .certificate-text:last-of-type {
+    display: none !important;
+}
+
+/* Master Certificate: restyle the "this certifies that" line */
+.master-active .certificate-body .certificate-text:first-of-type {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* Master Certificate: restyle the student name label */
+.master-active .certificate-footer {
+    justify-content: center;
+}
+
 /* Master Badge for Dashboard */
 .master-cert {
     animation: goldPulse 2s infinite;

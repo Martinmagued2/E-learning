@@ -4,10 +4,13 @@
  */
 
 const Certificate = {
+    _isMasterActive: false,
+
     /**
      * Show certificate for completed course with celebration
      */
     show(courseId, showCelebration = true) {
+        this._isMasterActive = false;
         // Get course data
         const course = App.coursesData.find(c => c.id === courseId);
 
@@ -73,30 +76,22 @@ const Certificate = {
      * Show MASTER certificate for completing ALL courses
      */
     showMasterCertificate() {
+        this._isMasterActive = true;
+
         // Get student name
         const studentName = Storage.getStudentName();
 
-        // Get current date
-        const date = new Date();
-        const arabicMonths = [
-            'يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو',
-            'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
-        ];
-        const formattedDate = `${date.getDate()} ${arabicMonths[date.getMonth()]} ${date.getFullYear()}`;
-
-        // Set Master Certificate Content
+        // Set Master Certificate Content — NAME ONLY
         document.getElementById('certificateStudentName').textContent = studentName;
-        document.getElementById('certificateCourseName').textContent = "إتمام جميع الدورات التدريبية";
-        document.getElementById('certificateDate').textContent = formattedDate;
 
         // Update Title for distinction
         const titleEl = document.querySelector('.certificate-title');
         if (titleEl) titleEl.textContent = "شهادة إتقان وتفوق";
 
         const subtitleEl = document.querySelector('.certificate-subtitle');
-        if (subtitleEl) subtitleEl.textContent = "Master Certificate of Achievement";
+        if (subtitleEl) subtitleEl.textContent = "هذه الشهادة تشهد وتمنح لـ...";
 
-        // Add Master Class to container
+        // Add Master Class to container (hides course name, date, score via CSS)
         const container = document.querySelector('.certificate-container');
         if (container) container.classList.add('master-active');
 
@@ -119,7 +114,7 @@ const Certificate = {
         // Setup print button
         const printBtn = document.getElementById('printCertificate');
         if (printBtn) {
-            printBtn.onclick = () => this.download(true); // true = isMaster
+            printBtn.onclick = () => this.download();
         }
 
         // Setup continue button
@@ -275,79 +270,105 @@ const Certificate = {
     /**
      * Download certificate as PDF using template image
      */
-    async download(isMaster = false) {
+    async download() {
+        const isMaster = this._isMasterActive;
         const overlay = document.querySelector('.congrats-overlay');
         if (overlay) overlay.classList.remove('show');
 
         const studentName = document.getElementById('certificateStudentName')?.textContent || 'Student';
         const courseName = document.getElementById('certificateCourseName')?.textContent || 'Course';
 
-        const filename = `${studentName}_${courseName}_Certificate.pdf`.replace(/\s+/g, '_');
+        const filename = isMaster
+            ? `${studentName}_Master_Certificate.pdf`.replace(/\s+/g, '_')
+            : `${studentName}_${courseName}_Certificate.pdf`.replace(/\s+/g, '_');
 
         try {
-            const { jsPDF } = window.jspdf;
-
-            if (!jsPDF) throw new Error('jsPDF not loaded');
-
-            // Create PDF in landscape A4
-            const doc = new jsPDF({
-                orientation: 'landscape',
-                unit: 'mm',
-                format: 'a4'
-            });
-
-            const W = 297, H = 210;
-
-            // Load certificate template
-            const templateImg = await this.imageToBase64('assets/images/certificate_template.jpg');
-
-            // Add template as background (full page)
-            doc.addImage(templateImg, 'JPEG', 0, 0, W, H);
-
-            // Special Master Certificate Overlay
             if (isMaster) {
-                doc.setDrawColor(218, 165, 32); // Goldenrod
-                doc.setLineWidth(2);
-                doc.rect(5, 5, W - 10, H - 10);
-                doc.setLineWidth(1);
-                doc.rect(7, 7, W - 14, H - 14);
+                // ===== MASTER CERTIFICATE: Download as PNG =====
+                const filenamePng = `${studentName}_Master_Certificate.png`.replace(/\s+/g, '_');
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
 
-                // Add a gold seal emoji or similar if possible
-                doc.setFontSize(40);
-                doc.text('🏆', 20, 40);
+                const img = new Image();
+                img.onload = () => {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+
+                    // Position name in the white field area (~54% down from top)
+                    const nameY = canvas.height * 0.56;
+
+                    // Draw name
+                    ctx.font = `bold ${Math.round(canvas.height * 0.08)}px Cairo, Arial, sans-serif`;
+                    ctx.fillStyle = '#2c3e50';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+
+                    const hasArabic = /[\u0600-\u06FF]/.test(studentName);
+                    if (hasArabic) {
+                        ctx.direction = 'rtl';
+                    }
+                    ctx.fillText(studentName, canvas.width / 2, nameY);
+
+                    // Trigger PNG download
+                    const link = document.createElement('a');
+                    link.download = filenamePng;
+                    link.href = canvas.toDataURL('image/png', 1.0);
+                    link.click();
+                    console.log('Master certificate PNG generated successfully!');
+                };
+                img.onerror = () => {
+                    alert('حدث خطأ أثناء تحميل قالب الشهادة. الرجاء المحاولة مرة أخرى.');
+                };
+                img.src = 'assets/images/master_certificate_template.jpg';
+                return; // Exit, PDF logic below is only for module certificates
             }
 
-            // Add student name in the first decorative frame
-            // Adjusted position based on template analysis (moved down further)
-            const hasArabic = /[\u0600-\u06FF]/.test(studentName);
-            const nameColor = isMaster ? '#b8860b' : '#4a3c28';
-            if (hasArabic) {
-                // Y centered around 142
-                const nameImg = await this.createArabicTextImage(studentName, 70, nameColor, true);
-                doc.addImage(nameImg, 'PNG', W / 2 - 85, 130, 170, 22);
-            } else {
-                doc.setFontSize(36);
-                doc.setTextColor(isMaster ? 184 : 74, isMaster ? 134 : 60, isMaster ? 11 : 40);
-                doc.setFont('helvetica', 'bold');
-                doc.text(studentName, W / 2, 150, { align: 'center' });
-            }
+            // ===== MODULE CERTIFICATE: Download as PNG =====
+            const filenamePng = `${studentName}_${courseName}_Certificate.png`.replace(/\s+/g, '_');
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+                
+            const img = new Image();
+            img.onload = () => {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                
+                // Position name (~67% down from top) and course name (~87% down from top)
+                const nameY = canvas.height * 0.67;
+                const courseY = canvas.height * 0.87;
+                
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                const hasArabicName = /[\u0600-\u06FF]/.test(studentName);
+                if (hasArabicName) ctx.direction = 'rtl';
+                else ctx.direction = 'ltr';
 
-            // Add course name in the second decorative frame  
-            // Adjusted position based on template analysis (moved down further)
-            const courseArabic = /[\u0600-\u06FF]/.test(courseName);
-            if (courseArabic) {
-                // Y centered around 183
-                const courseImg = await this.createArabicTextImage(courseName, 54, '#4a3c28', true);
-                doc.addImage(courseImg, 'PNG', W / 2 - 80, 174, 160, 18);
-            } else {
-                doc.setFontSize(28);
-                doc.setTextColor(74, 60, 40);
-                doc.setFont('helvetica', 'bold');
-                doc.text(courseName, W / 2, 183, { align: 'center' });
-            }
+                // Draw student name
+                ctx.font = `bold ${Math.round(canvas.height * 0.05)}px Cairo, Arial, sans-serif`;
+                ctx.fillStyle = '#4a3c28';
+                ctx.fillText(studentName, canvas.width / 2, nameY);
 
-            doc.save(filename);
-            console.log('PDF generated successfully using template!');
+                // Draw course name
+                ctx.font = `bold ${Math.round(canvas.height * 0.04)}px Cairo, Arial, sans-serif`;
+                const hasArabicCourse = /[\u0600-\u06FF]/.test(courseName);
+                if (hasArabicCourse) ctx.direction = 'rtl';
+                else ctx.direction = 'ltr';
+                ctx.fillText(courseName, canvas.width / 2, courseY);
+                
+                // Trigger PNG download
+                const link = document.createElement('a');
+                link.download = filenamePng;
+                link.href = canvas.toDataURL('image/png', 1.0);
+                link.click();
+                console.log('Module certificate PNG generated successfully!');
+            };
+            img.onerror = () => {
+                alert('حدث خطأ أثناء تحميل قالب الشهادة. الرجاء المحاولة مرة أخرى.');
+            };
+            img.src = 'assets/images/certificate_template.jpg';
 
         } catch (error) {
             console.error('Error generating PDF:', error);
@@ -359,7 +380,8 @@ const Certificate = {
      * Go back to dashboard
      */
     close() {
-        // Remove master class if it was there
+        // Reset master flag and remove master class
+        this._isMasterActive = false;
         const container = document.querySelector('.certificate-container');
         if (container) container.classList.remove('master-active');
 

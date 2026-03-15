@@ -21,7 +21,6 @@ const TimedQuiz = {
         this.onTimeUp = options.onTimeUp || null;
         this.isEnabled = true;
     },
-
     /**
      * Create timer display element
      */
