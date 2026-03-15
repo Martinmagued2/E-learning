@@ -294,7 +294,7 @@ const Quiz = {
         const quizMain = document.getElementById('quizMain');
         const totalQuestions = this.currentQuiz.questions.length;
         const percentage = Math.round((this.score / totalQuestions) * 100);
-        const passed = percentage >= 60; // 60% passing grade
+        const passed = (totalQuestions === 7) ? (this.score >= 4) : (percentage >= 60);
 
         // Save quiz score
         Storage.saveQuizScore(this.currentQuiz.courseId, this.score, totalQuestions);
@@ -304,20 +304,10 @@ const Quiz = {
             Storage.markCourseCompleted(this.currentQuiz.courseId);
             Storage.resetConsecutiveFailures(this.currentQuiz.courseId);
         } else {
-            // Lose a life if lives system is enabled
-            if (this.currentQuiz.enableLives && typeof LivesSystem !== 'undefined' && LivesSystem.isEnabled) {
-                LivesSystem.loseLife();
-            }
-
-            // Track consecutive failures
-            const consecutiveFailures = Storage.incrementConsecutiveFailures(this.currentQuiz.courseId);
-
-            // If 3 consecutive failures, restart the lesson
-            if (consecutiveFailures >= 3) {
-                Storage.resetConsecutiveFailures(this.currentQuiz.courseId);
+            // Immediate restart on failure
+            setTimeout(() => {
                 this.handleLessonRestart();
-                return;
-            }
+            }, 5000); // Wait 5 seconds to show failure message before restarting
         }
 
         // Check for new achievements
@@ -353,10 +343,11 @@ const Quiz = {
                         </button>
                     `}
                 ` : `
-                    <button class="btn btn-secondary btn-large" onclick="Quiz.start(Quiz.currentQuiz, '${this.currentQuiz.courseId}')">
-                        <span class="btn-icon">🔄</span>
-                        <span>إعادة المحاولة</span>
-                    </button>
+                    <div class="mt-lg">
+                        <p class="text-danger mb-md">يجب الإجابة على 4 أسئلة على الأقل بشكل صحيح للنجاح.</p>
+                        <p>سيتم إعادة توجيهك إلى بداية الوحدة للمراجعة...</p>
+                        <div class="loading-spinner mt-sm"></div>
+                    </div>
                 `}
                 
                 <button class="btn btn-secondary mt-lg" onclick="App.showScreen('dashboardScreen'); App.loadDashboard();">
@@ -379,7 +370,7 @@ const Quiz = {
         quizMain.innerHTML = `
             <div class="quiz-results">
                 <div class="game-over-icon" style="font-size: 4rem; margin-bottom: 20px;">🔄</div>
-                <h2>لقد فشلت 3 مرات متتالية</h2>
+                <h2>لم تجتز الاختبار</h2>
                 <p>سنبدأ الدرس من البداية لتتمكن من مراجعة المعلومات بشكل أفضل</p>
                 <div class="loading-spinner mt-lg"></div>
             </div>

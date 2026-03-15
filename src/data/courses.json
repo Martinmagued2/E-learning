@@ -287,10 +287,10 @@
                 "title": "اختبار السلامة من حرائق المساكن",
                 "description": "اختبار شامل عن حرائق المطبخ والوقاية منها",
                 "timedMode": true,
-                "timePerQuestion": 15,
+                "timePerQuestion": 45,
                 "enableLives": true,
                 "maxLives": 3,
-                "questionsPerAttempt": 10,
+                "questionsPerAttempt": 7,
                 "shuffleQuestions": true,
                 "questionBank": [
                     {
@@ -841,10 +841,10 @@
             "quiz": {
                 "title": "اختبار السلامة الكهربائية",
                 "timedMode": true,
-                "timePerQuestion": 15,
+                "timePerQuestion": 45,
                 "enableLives": true,
                 "maxLives": 3,
-                "questionsPerAttempt": 10,
+                "questionsPerAttempt": 7,
                 "shuffleQuestions": true,
                 "questionBank": [
                     {
@@ -1192,10 +1192,10 @@
             "quiz": {
                 "title": "اختبار السلامة المرورية",
                 "timedMode": true,
-                "timePerQuestion": 15,
+                "timePerQuestion": 45,
                 "enableLives": true,
                 "maxLives": 3,
-                "questionsPerAttempt": 10,
+                "questionsPerAttempt": 7,
                 "shuffleQuestions": true,
                 "questionBank": [
                     {
@@ -1559,10 +1559,10 @@
             "quiz": {
                 "title": "اختبار المخاطر المنزلية",
                 "timedMode": true,
-                "timePerQuestion": 15,
+                "timePerQuestion": 45,
                 "enableLives": true,
                 "maxLives": 3,
-                "questionsPerAttempt": 10,
+                "questionsPerAttempt": 7,
                 "shuffleQuestions": true,
                 "questionBank": [
                     {
