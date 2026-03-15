@@ -222,15 +222,11 @@
 
 .room-view {
     height: 400px;
-    background: #2f3542;
+    background: #2f3542 url('../assets/images/escape_room_bg.png') no-repeat center;
+    background-size: cover;
     border-radius: 15px;
     position: relative;
     overflow: hidden;
-}
-
-.arcade-bg {
-    background-image: url('../assets/images/arcade_bg.png');
-    background-size: cover;
 }
 
 .interactive-object {
