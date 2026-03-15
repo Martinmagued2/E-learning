@@ -295,11 +295,11 @@ const Certificate = {
                     canvas.height = img.height;
                     ctx.drawImage(img, 0, 0);
 
-                    // Position name in the white field area (~54% down from top)
+                    // Position name in the white field area (~56% down from top)
                     const nameY = canvas.height * 0.56;
 
                     // Draw name
-                    ctx.font = `bold ${Math.round(canvas.height * 0.08)}px Cairo, Arial, sans-serif`;
+                    ctx.font = `bold ${Math.round(canvas.height * 0.05)}px Cairo, Arial, sans-serif`;
                     ctx.fillStyle = '#2c3e50';
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
@@ -328,20 +328,20 @@ const Certificate = {
             const filenamePng = `${studentName}_${courseName}_Certificate.png`.replace(/\s+/g, '_');
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-                
+
             const img = new Image();
             img.onload = () => {
                 canvas.width = img.width;
                 canvas.height = img.height;
                 ctx.drawImage(img, 0, 0);
-                
+
                 // Position name (~67% down from top) and course name (~87% down from top)
                 const nameY = canvas.height * 0.67;
                 const courseY = canvas.height * 0.87;
-                
+
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                
+
                 const hasArabicName = /[\u0600-\u06FF]/.test(studentName);
                 if (hasArabicName) ctx.direction = 'rtl';
                 else ctx.direction = 'ltr';
@@ -357,7 +357,7 @@ const Certificate = {
                 if (hasArabicCourse) ctx.direction = 'rtl';
                 else ctx.direction = 'ltr';
                 ctx.fillText(courseName, canvas.width / 2, courseY);
-                
+
                 // Trigger PNG download
                 const link = document.createElement('a');
                 link.download = filenamePng;
