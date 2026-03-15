@@ -13,7 +13,7 @@ const SpotDifference = {
     startTime: null,
     timeBonus: 0,
     hintsUsed: 0,
-    
+
     hazards: [
         {
             title: "🚪 مخرج الطوارئ مسدود",
@@ -106,13 +106,13 @@ const SpotDifference = {
                             <div class="diff-zone" style="top: 48%; left: 67%; width: 10%; height: 10%;" title="ورقة بجانب الماوس" onclick="SpotDifference.found(3, this)"></div>
                         </div>
                     </div>
-                    <p class="instruction">اضغط على المخاطر في الصورة اليمنى (خطر ❌) فقط. النقر الخاطئ سيخصم منك نقاط!</p>
+                    <p class="instruction">اضغط على المخاطر في الصورة اليسرى (خطر ❌) فقط. النقر الخاطئ سيخصم منك نقاط!</p>
                     <div id="hazardsList" class="hazards-list"></div>
                 </div>
             </div>
         `;
         document.body.appendChild(overlay);
-        
+
         // Delay timer start to allow intro audio to play
         setTimeout(() => {
             if (this.isActive && !this.completed) {
@@ -139,15 +139,15 @@ const SpotDifference = {
 
     wrongClick() {
         if (this.completed) return;
-        
+
         this.wrongClicks++;
         document.getElementById('wrongCount').textContent = this.wrongClicks;
-        
+
         if (typeof SoundEffects !== 'undefined') SoundEffects.wrong();
-        
+
         // Show feedback
         this.showFeedback('❌ خطأ! اضغط على المخاطر في الصورة اليمنى فقط', 'error');
-        
+
         if (this.wrongClicks >= this.maxWrongClicks) {
             this.showFeedback('⚠️ لقد استنفذت المحاولات المسموحة. حاول مرة أخرى!', 'error');
             setTimeout(() => this.close(), 2000);
@@ -156,19 +156,19 @@ const SpotDifference = {
 
     useHint() {
         if (this.completed) return;
-        
+
         // Find first unfound hazard
         const zones = document.querySelectorAll('.diff-zone:not(.found)');
         if (zones.length === 0) return;
-        
+
         const firstUnfound = zones[0];
         const index = parseInt(firstUnfound.getAttribute('data-index'));
-        
+
         this.hintsUsed++;
         firstUnfound.classList.add('hinted');
-        
+
         this.showFeedback(`💡 تلميح: ${this.hazards[index].title}`, 'hint');
-        
+
         // Disable hint button for a few seconds
         const hintBtn = document.getElementById('hintBtn');
         hintBtn.disabled = true;
@@ -177,19 +177,19 @@ const SpotDifference = {
             hintBtn.disabled = false;
             hintBtn.textContent = '💡 تلميح';
         }, 5000);
-        
+
         if (typeof SoundEffects !== 'undefined') SoundEffects.notification();
     },
 
     showFeedback(message, type = 'info') {
         const existing = document.querySelector('.spot-feedback');
         if (existing) existing.remove();
-        
+
         const feedback = document.createElement('div');
         feedback.className = `spot-feedback ${type}`;
         feedback.textContent = message;
         document.querySelector('.spot-container').appendChild(feedback);
-        
+
         setTimeout(() => feedback.classList.add('show'), 10);
         setTimeout(() => {
             feedback.classList.remove('show');
@@ -218,7 +218,7 @@ const SpotDifference = {
     showHazardInfo(index) {
         const hazard = this.hazards[index];
         const list = document.getElementById('hazardsList');
-        
+
         const card = document.createElement('div');
         card.className = 'hazard-card';
         card.innerHTML = `
@@ -232,30 +232,30 @@ const SpotDifference = {
             </div>
         `;
         list.appendChild(card);
-        
+
         setTimeout(() => card.classList.add('show'), 10);
     },
 
     complete() {
         this.completed = true;
         clearInterval(this.timerInterval);
-        
+
         // Calculate elapsed time (handle case where timer hasn't started)
         const elapsedTime = this.startTime ? Math.floor((Date.now() - this.startTime) / 1000) : 0;
-        
+
         // Calculate score
         let score = 100;
         score -= (this.wrongClicks * 10); // -10 points per wrong click
         score -= (this.hintsUsed * 5);     // -5 points per hint
-        
+
         // Time bonus (if completed under 2 minutes)
         if (elapsedTime < 120) {
             this.timeBonus = Math.floor((120 - elapsedTime) / 10) * 5;
             score += this.timeBonus;
         }
-        
+
         score = Math.max(0, Math.min(100, score)); // Clamp between 0-100
-        
+
         const body = document.getElementById('spotBody');
         body.innerHTML = `
             <div class="completion-screen">
@@ -293,9 +293,9 @@ const SpotDifference = {
                     </div>
                     
                     <div class="performance-rating">
-                        ${score >= 90 ? '🏆 أداء ممتاز!' : 
-                          score >= 75 ? '⭐ أداء جيد جداً!' :
-                          score >= 60 ? '👍 أداء جيد!' : '💪 يمكنك التحسين!'}
+                        ${score >= 90 ? '🏆 أداء ممتاز!' :
+                score >= 75 ? '⭐ أداء جيد جداً!' :
+                    score >= 60 ? '👍 أداء جيد!' : '💪 يمكنك التحسين!'}
                     </div>
                 </div>
                 
@@ -304,7 +304,7 @@ const SpotDifference = {
         `;
         if (typeof SoundEffects !== 'undefined') SoundEffects.success();
         if (typeof Confetti !== 'undefined') Confetti.celebrate();
-        
+
         // Save achievement
         if (typeof Achievements !== 'undefined' && score >= 80) {
             Achievements.unlock('eagle_eye');
