@@ -39,7 +39,7 @@ const Quiz = {
 
         // Determine how many questions to show
         const questionBankSize = questions.length;
-        const questionsToShow = quiz.questionsPerAttempt || Math.min(10, questionBankSize);
+        const questionsToShow = quiz.questionsPerAttempt || Math.min(7, questionBankSize);
 
         // Decide whether to shuffle questions
         const shouldShuffle = quiz.shuffleQuestions !== undefined ? quiz.shuffleQuestions : true;
@@ -294,7 +294,7 @@ const Quiz = {
         const quizMain = document.getElementById('quizMain');
         const totalQuestions = this.currentQuiz.questions.length;
         const percentage = Math.round((this.score / totalQuestions) * 100);
-        const passed = percentage >= 60; // 60% passing grade
+        const passed = this.score >= 4; // Pass if 4 or more answers are correct
 
         // Save quiz score
         Storage.saveQuizScore(this.currentQuiz.courseId, this.score, totalQuestions);
@@ -307,16 +307,6 @@ const Quiz = {
             // Lose a life if lives system is enabled
             if (this.currentQuiz.enableLives && typeof LivesSystem !== 'undefined' && LivesSystem.isEnabled) {
                 LivesSystem.loseLife();
-            }
-
-            // Track consecutive failures
-            const consecutiveFailures = Storage.incrementConsecutiveFailures(this.currentQuiz.courseId);
-
-            // If 3 consecutive failures, restart the lesson
-            if (consecutiveFailures >= 3) {
-                Storage.resetConsecutiveFailures(this.currentQuiz.courseId);
-                this.handleLessonRestart();
-                return;
             }
         }
 
@@ -353,9 +343,9 @@ const Quiz = {
                         </button>
                     `}
                 ` : `
-                    <button class="btn btn-secondary btn-large" onclick="Quiz.start(Quiz.currentQuiz, '${this.currentQuiz.courseId}')">
+                    <button class="btn btn-secondary btn-large" onclick="Quiz.handleLessonRestart()">
                         <span class="btn-icon">🔄</span>
-                        <span>إعادة المحاولة</span>
+                        <span>إعادة الوحدة من البداية</span>
                     </button>
                 `}
                 
@@ -370,7 +360,7 @@ const Quiz = {
     },
 
     /**
-     * Handle lesson restart after 3 failures
+     * Handle lesson restart upon failure
      */
     handleLessonRestart() {
         const quizMain = document.getElementById('quizMain');
@@ -379,7 +369,7 @@ const Quiz = {
         quizMain.innerHTML = `
             <div class="quiz-results">
                 <div class="game-over-icon" style="font-size: 4rem; margin-bottom: 20px;">🔄</div>
-                <h2>لقد فشلت 3 مرات متتالية</h2>
+                <h2>يجب عليك إعادة الوحدة</h2>
                 <p>سنبدأ الدرس من البداية لتتمكن من مراجعة المعلومات بشكل أفضل</p>
                 <div class="loading-spinner mt-lg"></div>
             </div>
