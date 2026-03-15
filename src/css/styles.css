@@ -345,6 +345,81 @@ body {
 }
 
 /* ====================================
+   Credits Screen (Splash)
+   ==================================== */
+.credits-container {
+    min-height: calc(100vh - 110px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-lg);
+    background: linear-gradient(135deg, #16213e 0%, #0f3460 50%, #1a1a2e 100%);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    z-index: 1;
+}
+
+.credits-logo {
+    font-size: 5rem;
+    margin-bottom: var(--spacing-md);
+    animation: bounce 2s ease infinite;
+}
+
+.credits-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--warning);
+    margin-bottom: var(--spacing-xl);
+    max-width: 800px;
+    line-height: 1.4;
+    animation: fadeInDown 1s ease;
+}
+
+.credits-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    max-width: 800px;
+    margin-bottom: var(--spacing-lg);
+}
+
+.credits-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+.credit-item {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--text-primary);
+    backdrop-filter: blur(5px);
+    transition: all var(--transition-medium);
+    animation: scaleIn 0.8s ease backwards;
+}
+
+.credits-row:nth-child(1) .credit-item:nth-child(1) { animation-delay: 0.1s; }
+.credits-row:nth-child(1) .credit-item:nth-child(2) { animation-delay: 0.3s; }
+.credits-row:nth-child(1) .credit-item:nth-child(3) { animation-delay: 0.5s; }
+.credits-row:nth-child(2) .credit-item:nth-child(1) { animation-delay: 0.7s; }
+.credits-row:nth-child(2) .credit-item:nth-child(2) { animation-delay: 0.9s; }
+
+.credit-item:hover {
+    transform: translateY(-5px) scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--warning);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ====================================
    Welcome Screen
    ==================================== */
 .welcome-container {

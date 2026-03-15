@@ -51,8 +51,31 @@
         </button>
     </div>
 
+    <!-- Credits Screen (Splash) -->
+    <div class="screen active" id="creditsScreen">
+        <div class="credits-container">
+            <div class="credits-logo">🎓</div>
+            <h1 class="credits-title">هذا المشروع من تنفيذ طلاب كلية الهندسة - جامعة عين شمس</h1>
+            <div class="credits-list">
+                <div class="credits-row">
+                    <div class="credit-item">مارتن ماجد</div>
+                    <div class="credit-item">عمر احمد</div>
+                    <div class="credit-item">بولا اميل</div>
+                </div>
+                <div class="credits-row">
+                    <div class="credit-item">عمرو ابو النصر</div>
+                    <div class="credit-item">مايكل ناجي</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="skipCreditsBtn" style="margin-top: 2rem;">
+                <span>متابعة</span>
+                <span class="btn-icon">→</span>
+            </button>
+        </div>
+    </div>
+
     <!-- Welcome Screen -->
-    <div class="screen active" id="welcomeScreen">
+    <div class="screen" id="welcomeScreen">
         <div class="welcome-container">
             <div class="welcome-header">
                 <div class="app-logo">🛡️</div>
@@ -164,13 +187,6 @@
                             <span class="tool-desc">تعريفات السلامة</span>
                         </button>
 
-
-
-                        <button class="tool-card" id="openPosters" onclick="SafetyPosters.open()">
-                            <span class="tool-icon">🖼️</span>
-                            <span class="tool-name">ملصقات للطباعة</span>
-                            <span class="tool-desc">حمّل واطبع</span>
-                        </button>
                     </div>
                 </section>
 

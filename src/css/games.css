@@ -495,3 +495,102 @@
 .option-btn:hover {
     background: #ffa502;
 }
+
+/* Spot Difference Hazards List & Cards */
+.hazards-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Custom scrollbar for hazards list */
+.hazards-list::-webkit-scrollbar {
+    width: 6px;
+}
+.hazards-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+.hazards-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+.hazards-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.hazard-card {
+    background: linear-gradient(145deg, #2f3542, #1e272e);
+    border-radius: 12px;
+    border-right: 5px solid #ff4757;
+    padding: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.hazard-card.show {
+    opacity: 1;
+    transform: translateY(0);
+    animation: glowPulse 2s infinite;
+}
+
+@keyframes glowPulse {
+    0% { box-shadow: 0 5px 15px rgba(255, 71, 87, 0.2); }
+    50% { box-shadow: 0 5px 25px rgba(255, 71, 87, 0.5); }
+    100% { box-shadow: 0 5px 15px rgba(255, 71, 87, 0.2); }
+}
+
+.hazard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+}
+
+.hazard-header h4 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #ffdda1;
+}
+
+.risk-badge {
+    background: rgba(255, 71, 87, 0.2);
+    color: #ff4757;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border: 1px solid #ff4757;
+}
+
+.hazard-desc {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    color: #dcdde1;
+}
+
+.hazard-solution {
+    background: rgba(46, 213, 115, 0.15);
+    border-right: 4px solid #2ed573;
+    padding: 12px 15px;
+    border-radius: 8px;
+    color: #e8f5e9;
+    font-size: 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.hazard-solution strong {
+    color: #2ed573;
+    min-width: 65px;
+}

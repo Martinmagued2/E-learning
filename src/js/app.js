@@ -45,39 +45,54 @@ const App = {
 
         // Check if student name exists
         const studentName = Storage.getStudentName();
-        this.showScreen('welcomeScreen');
 
-        if (studentName && studentName !== 'الطالب') {
-            // Returning user: Pre-fill name and update UI
-            const nameInput = document.getElementById('studentName');
-            if (nameInput) nameInput.value = studentName;
+        // Show credits screen first
+        this.showScreen('creditsScreen');
 
-            // Update welcome message
-            const welcomeTitle = document.querySelector('.welcome-card h2');
-            if (welcomeTitle) welcomeTitle.textContent = `مرحباً بعودتك، ${studentName} 👋`;
+        const skipCreditsBtn = document.getElementById('skipCreditsBtn');
+        let creditsTimeout;
 
-            // Update button text
-            const startBtnSpan = document.querySelector('#startBtn span');
-            if (startBtnSpan) startBtnSpan.textContent = 'متابعة التعلم';
+        const proceedToWelcome = () => {
+            clearTimeout(creditsTimeout);
+            this.showScreen('welcomeScreen');
 
-            // Allow returning users to see tour if they haven't seen it (or force it for now)
-            if (typeof DialogueTour !== 'undefined') {
-                // Remove force true so it only plays once
-                setTimeout(() => DialogueTour.startTour('welcome'), 1000);
+            if (studentName && studentName !== 'الطالب') {
+                // Returning user: Pre-fill name and update UI
+                const nameInput = document.getElementById('studentName');
+                if (nameInput) nameInput.value = studentName;
+
+                // Update welcome message
+                const welcomeTitle = document.querySelector('.welcome-card h2');
+                if (welcomeTitle) welcomeTitle.textContent = `مرحباً بعودتك، ${studentName} 👋`;
+
+                // Update button text
+                const startBtnSpan = document.querySelector('#startBtn span');
+                if (startBtnSpan) startBtnSpan.textContent = 'متابعة التعلم';
+
+                // Allow returning users to see tour if they haven't seen it (or force it for now)
+                if (typeof DialogueTour !== 'undefined') {
+                    setTimeout(() => DialogueTour.startTour('welcome'), 1000);
+                }
+            } else {
+                // New user / Fresh start - ensure input is cleared
+                const nameInput = document.getElementById('studentName');
+                if (nameInput) nameInput.value = '';
+
+                AudioNarration.playWelcome();
+
+                // Start welcome tour
+                if (typeof DialogueTour !== 'undefined') {
+                    setTimeout(() => DialogueTour.startTour('welcome'), 1000);
+                }
             }
-        } else {
-            // New user / Fresh start - ensure input is cleared
-            const nameInput = document.getElementById('studentName');
-            if (nameInput) nameInput.value = '';
+        };
 
-            AudioNarration.playWelcome();
-
-            // Start welcome tour (New Character Dialogue Tour)
-            // Force start to ensure user sees it
-            if (typeof DialogueTour !== 'undefined') {
-                setTimeout(() => DialogueTour.startTour('welcome'), 1000);
-            }
+        if (skipCreditsBtn) {
+            skipCreditsBtn.addEventListener('click', proceedToWelcome);
         }
+
+        // Auto-proceed after 4.5 seconds
+        creditsTimeout = setTimeout(proceedToWelcome, 10000);
     },
 
     /**
