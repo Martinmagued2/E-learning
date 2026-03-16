@@ -106,7 +106,7 @@ const SafetyArcade = {
         this.renderUI();
 
         if (typeof DialogueTour !== 'undefined') {
-            DialogueTour.startTour('safetyArcade');
+            DialogueTour.startTour('safetyArcade', true);
         }
     },
 

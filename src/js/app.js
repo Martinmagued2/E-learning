@@ -635,7 +635,9 @@ const App = {
         // Check if current lesson has a mandatory mini-game that isn't completed
         if (direction > 0 && this.currentCourse) {
             const currentLesson = this.currentCourse.lessons[this.currentLessonIndex];
-            if (currentLesson && this.hasInteractiveGame(currentLesson)) {
+            const isAlreadyCompleted = Storage.isLessonCompleted(this.currentCourse.id, currentLesson.id);
+
+            if (currentLesson && this.hasInteractiveGame(currentLesson) && !isAlreadyCompleted) {
                 if (!this.isGameCompleted(currentLesson)) {
                     alert('⚠️ يجب إكمال النشاط التفاعلي (اللعبة) قبل الانتقال للدرس التالي!');
                     return;

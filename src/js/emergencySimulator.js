@@ -36,7 +36,7 @@ const EmergencySimulator = {
         this.renderUI(scenario);
 
         if (typeof DialogueTour !== 'undefined') {
-            DialogueTour.startTour('emergencySimulator');
+            DialogueTour.startTour('emergencySimulator', true);
         }
     },
 

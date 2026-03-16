@@ -16,7 +16,7 @@ const HazardMap = {
         this.renderUI();
 
         if (typeof DialogueTour !== 'undefined') {
-            DialogueTour.startTour('hazardMap');
+            DialogueTour.startTour('hazardMap', true);
         }
     },
 

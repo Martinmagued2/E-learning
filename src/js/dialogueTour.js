@@ -621,25 +621,29 @@ const DialogueTour = {
                 character: 'salem',
                 expression: 'explaining',
                 text: 'لعبة المطابقة تختبر ذاكرتك ومعرفتك بأدوات السلامة! 🃏',
-                speech: 'لعبة المطابقة تختبر ذاكرتك ومعرفتك بأدوات السلامة!'
+                speech: 'لعبة المطابقة تختبر ذاكرتك ومعرفتك بأدوات السلامة!',
+                audio: 'assets/audio/dialogue/Memory_0.mp3'
             },
             {
                 character: 'nour',
                 expression: 'curious',
                 text: 'كيف يمكنني الفوز؟ 🏆',
-                speech: 'كيف يمكنني الفوز؟'
+                speech: 'كيف يمكنني الفوز؟',
+                audio: 'assets/audio/dialogue/Memory_1.mp3'
             },
             {
                 character: 'salem',
                 expression: 'happy',
                 text: 'اقلب البطاقات وحاول إيجاد كل زوج متشابه بأسرع وقت! ✨',
-                speech: 'اقلب البطاقات وحاول إيجاد كل زوج متشابه بأسرع وقت!'
+                speech: 'اقلب البطاقات وحاول إيجاد كل زوج متشابه بأسرع وقت!',
+                audio: 'assets/audio/dialogue/Memory_2.mp3'
             },
             {
                 character: 'nour',
                 expression: 'excited',
                 text: 'ذاكرتي قوية جداً! سأجمعهم كلهم! 🧠',
-                speech: 'ذاكرتي قوية جداً! سأجمعهم كلهم!'
+                speech: 'ذاكرتي قوية جداً! سأجمعهم كلهم!',
+                audio: 'assets/audio/dialogue/Memory_3.mp3'
             }
         ],
 
@@ -648,25 +652,29 @@ const DialogueTour = {
                 character: 'salem',
                 expression: 'explaining',
                 text: 'في لعبة فرز السلامة، يجب أن تكون سريعاً ومنظماً! 📦',
-                speech: 'في لعبة فرز السلامة، يجب أن تكون سريعاً ومنظماً!'
+                speech: 'في لعبة فرز السلامة، يجب أن تكون سريعاً ومنظماً!',
+                audio: 'assets/audio/dialogue/Classification_0.mp3'
             },
             {
                 character: 'nour',
                 expression: 'curious',
                 text: 'ما الذي يجب علي ترتيبه؟ 🤔',
-                speech: 'ما الذي يجب علي ترتيبه؟'
+                speech: 'ما الذي يجب علي ترتيبه؟',
+                audio: 'assets/audio/dialogue/Classification_1.mp3'
             },
             {
                 character: 'salem',
                 expression: 'happy',
                 text: 'اسحب كل عنصر وضعه في الصندوق أو الفئة الصحيحة الخاصة به! 🖱️',
-                speech: 'اسحب كل عنصر وضعه في الصندوق أو الفئة الصحيحة الخاصة به!'
+                speech: 'اسحب كل عنصر وضعه في الصندوق أو الفئة الصحيحة الخاصة به!',
+                audio: 'assets/audio/dialogue/Classification_2.mp3'
             },
             {
                 character: 'nour',
                 expression: 'excited',
                 text: 'جميل! الترتيب الصحيح يمنع الحوادث! هيا بنا! 🚀',
-                speech: 'جميل! الترتيب الصحيح يمنع الحوادث! هيا بنا!'
+                speech: 'جميل! الترتيب الصحيح يمنع الحوادث! هيا بنا!',
+                audio: 'assets/audio/dialogue/Classification_3.mp3'
             }
         ],
 

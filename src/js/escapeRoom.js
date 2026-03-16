@@ -18,7 +18,7 @@ const EscapeRoom = {
         this.renderUI();
 
         if (typeof DialogueTour !== 'undefined') {
-            DialogueTour.startTour('escapeRoom');
+            DialogueTour.startTour('escapeRoom', true);
         }
     },
 

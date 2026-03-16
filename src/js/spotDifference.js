@@ -55,7 +55,7 @@ const SpotDifference = {
             if (isFireCourse) {
                 setTimeout(() => DialogueTour.startTour('danger', true), 300);
             } else {
-                DialogueTour.startTour('spotDifference');
+                DialogueTour.startTour('spotDifference', true);
             }
         }
     },

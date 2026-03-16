@@ -36,7 +36,7 @@ const Scenarios = {
             const tourName = firstScenario && firstScenario.type === 'dragdrop' ? 'dragdrop' : 'scenarios';
 
             setTimeout(() => {
-                DialogueTour.startTour(tourName);
+                DialogueTour.startTour(tourName, true);
             }, 1000);
         }
     },

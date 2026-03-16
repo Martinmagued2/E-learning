@@ -111,7 +111,7 @@ const Quiz = {
         if (typeof DialogueTour !== 'undefined' && !DialogueTour.hasCompletedTour('quiz')) {
             // Start tour
             setTimeout(() => {
-                DialogueTour.startTour('quiz');
+                DialogueTour.startTour('quiz', true);
             }, 500);
 
             // Wait for tour to finish before starting quiz

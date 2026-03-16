@@ -1369,7 +1369,7 @@
                         {
                             "type": "interactive",
                             "game": "hazardMap",
-                            "label": "خريطة مخاطر المنزل"
+                            "label": "خريطة مخاطر الموقع"
                         }
                     ]
                 },

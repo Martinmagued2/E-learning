@@ -22,7 +22,7 @@ const PPEGame = {
         this.renderUI();
 
         if (typeof DialogueTour !== 'undefined') {
-            DialogueTour.startTour('ppeGame');
+            DialogueTour.startTour('ppeGame', true);
         }
     },
 

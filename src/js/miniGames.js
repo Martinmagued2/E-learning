@@ -171,9 +171,12 @@ const MiniGames = {
         document.getElementById('gameTitle').textContent = 'الألعاب التعليمية';
 
         const content = document.getElementById('gameContent');
+        const hiddenGames = ['spot-hazard', 'hazardMap'];
         content.innerHTML = `
             <div class="games-menu">
-                ${Object.values(this.games).map(game => `
+                ${Object.values(this.games)
+                    .filter(game => !hiddenGames.includes(game.id))
+                    .map(game => `
                     <button class="game-menu-item" data-game="${game.id}">
                         <span class="game-icon">${game.icon}</span>
                         <span class="game-name">${game.name}</span>
@@ -303,7 +306,7 @@ const MiniGames = {
         const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
 
         if (typeof DialogueTour !== 'undefined') {
-            DialogueTour.startTour('spotHazard');
+            DialogueTour.startTour('spotHazard', true);
         }
 
         document.getElementById('gameTitle').textContent = `🔍 ${this.games.spotHazard.name} - ${scenario.title}`;
@@ -392,7 +395,7 @@ const MiniGames = {
         let matches = 0;
 
         if (typeof DialogueTour !== 'undefined') {
-            DialogueTour.startTour('matching');
+            DialogueTour.startTour('matching', true);
         }
 
         document.getElementById('gameTitle').textContent = `🃏 ${this.games.matching.name}`;
@@ -508,7 +511,7 @@ const MiniGames = {
         };
 
         if (typeof DialogueTour !== 'undefined') {
-            DialogueTour.startTour('sorting');
+            DialogueTour.startTour('sorting', true);
         }
 
         document.getElementById('gameTitle').textContent = `📦 ${this.games.sorting.name}`;
