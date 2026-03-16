@@ -349,26 +349,30 @@ const DialogueTour = {
                 character: 'salem',
                 expression: 'happy',
                 text: 'وصلنا للاختبار النهائي! هل أنت مستعد؟ 📝',
-                speech: 'وصلنا للاختبار النهائي! هل أنت مستعد'
+                speech: 'وصلنا للاختبار النهائي! هل أنت مستعد',
+                audio: 'assets/audio/dialogue/quiz_0.m4a'
             },
             {
                 character: 'nour',
                 expression: 'excited',
                 text: 'نعم! ولكن انتبه للوقت! ⏱️',
-                speech: 'نعم! ولكن انتبه للوقت'
+                speech: 'نعم! ولكن انتبه للوقت',
+                audio: 'assets/audio/dialogue/quiz_1.m4a'
             },
             {
                 character: 'salem',
                 expression: 'explaining',
                 text: 'صحيح! لديك 45 ثانية لكل سؤال. العداد هنا ⏳',
                 speech: 'صحيح! لديك خمسة وأربعين ثانية لكل سؤال. العداد هنا',
-                highlight: '.timer-container'
+                highlight: '.timer-container',
+                audio: 'assets/audio/dialogue/quiz_2.mp3'
             },
             {
                 character: 'nour',
                 expression: 'happy',
                 text: 'اقرأ السؤال واختر الإجابة بسرعة ودقة! بالتوفيق! 🚀',
-                speech: 'اقرأ السؤال واختر الإجابة بسرعة ودقة! بالتوفيق'
+                speech: 'اقرأ السؤال واختر الإجابة بسرعة ودقة! بالتوفيق',
+                audio: 'assets/audio/dialogue/quiz_3.m4a'
             }
         ],
 
